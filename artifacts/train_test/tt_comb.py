@@ -42,6 +42,8 @@ from datetime import datetime
 import shutil
 import sys
 
+# For more stable but slower testing
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 # ---- DDP rendezvous defaults for single-node multi-GPU runs ----
 os.environ["MASTER_ADDR"] = "localhost"
@@ -89,18 +91,18 @@ PT_MODEL_PATH = "../models/m33_ep4.pth"
 # -------------------------
 # Training/validation data
 # -------------------------
-SE_DIR = "../../pp3d_data/train/malicious/train_19536"
-BENIGN_DIR = "../../pp3d_data/train/benign/train_100k"
+SE_DIR = "../pp3d_data/train/malicious/train_19536"
+BENIGN_DIR = "../pp3d_data/train/benign/train_100k"
 
 # Multiple validation splits to evaluate generalization
 VAL_SE_DIR_LIST = [
-    "../../pp3d_data/test/rq1/malicious/test_500",
-    "../../pp3d_data/test/rq4/malicious/test_138"
+    "../pp3d_data/test/rq1/malicious/test_500",
+    "../pp3d_data/test/rq4/malicious/test_138"
 ]
 
 VAL_BENIGN_DIR_LIST = [
-    "../../pp3d_data/test/rq1/benign/test_500",
-    "../../pp3d_data/test/rq4/benign/test_500"
+    "../pp3d_data/test/rq1/benign/test_500",
+    "../pp3d_data/test/rq4/benign/test_500"
 ]
 
 # Control saving of qualitative results by outcome type

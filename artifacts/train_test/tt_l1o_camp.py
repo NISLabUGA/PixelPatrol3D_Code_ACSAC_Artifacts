@@ -41,6 +41,9 @@ from datetime import datetime
 import shutil
 import random
 
+# For more stable but slower testing
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
 # Distributed rendezvous configuration (single-node localhost)
 os.environ["MASTER_ADDR"] = "localhost"
 os.environ["MASTER_PORT"] = "29500"
@@ -103,8 +106,8 @@ PT_MODEL_PATHS = [
 ]
 
 # Dataset roots for RQ3 cycles and output
-ROOT_DIR = "../../pp3d_data/l1o/rq3/l1o_camp/"
-BENIGN_TRAIN = "../../pp3d_data/train/benign/train_100k"
+ROOT_DIR = "../pp3d_data/l1o/rq3/l1o_camp/"
+BENIGN_TRAIN = "../pp3d_data/train/benign/train_100k"
 OUT_BASE = "./out/l1o_camp"   # base output directory for all cycles
 WORLD_SIZE = torch.cuda.device_count()  # number of GPUs / processes
 

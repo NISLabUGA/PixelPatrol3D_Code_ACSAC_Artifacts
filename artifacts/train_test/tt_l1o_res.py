@@ -43,6 +43,9 @@ from datetime import datetime
 import shutil
 import random
 
+# For more stable but slower testing
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
 # Configure default rendezvous for torch.distributed (single-node, localhost RDV)
 os.environ["MASTER_ADDR"] = "localhost"
 os.environ["MASTER_PORT"] = "29500"
@@ -105,8 +108,8 @@ PT_MODEL_PATHS = [
 ]
 
 # Dataset roots and multi-cycle orchestration
-ROOT_DIR = "../../pp3d_data/l1o/rq2/l1o_res/"   # cycles live here (1.mclus_excluded, ...)
-BENIGN_TRAIN = "../../pp3d_data/train/benign/train_100k"
+ROOT_DIR = "../pp3d_data/l1o/rq2/l1o_res/"   # cycles live here (1.mclus_excluded, ...)
+BENIGN_TRAIN = "../pp3d_data/train/benign/train_100k"
 OUT_BASE = "./out/l1o_res"                        # per-cycle output root
 WORLD_SIZE = torch.cuda.device_count()             # DDP world size = number of GPUs
 
