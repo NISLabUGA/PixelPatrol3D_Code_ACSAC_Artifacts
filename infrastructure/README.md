@@ -52,7 +52,7 @@ The PP3D artifact is designed to be **fully compatible with public cloud infrast
 - **RAM**: 8GB (16GB recommended for faster processing)
 - **Storage**: 500GB free space
 - **Network**: Stable internet connection for dataset download
-- **OS**: Linux (Ubuntu 18.04+, CentOS 7+) or macOS
+- **OS**: Linux (Ubuntu 22.04 recommended, Ubuntu 18.04+, CentOS 7+) or macOS
 
 ### Recommended Configuration
 
@@ -61,6 +61,14 @@ The PP3D artifact is designed to be **fully compatible with public cloud infrast
 - **GPU**: NVIDIA GPU with 8GB+ VRAM (optional but recommended)
 - **Storage**: SSD with 500GB+ free space
 - **Network**: High-bandwidth connection for dataset download
+
+### Tested Environment
+
+The artifact has been extensively tested on **Ubuntu 22.04** and the `install.sh` script works reliably in this environment. We specifically recommend:
+
+- **Ubuntu 22.04 LTS** for optimal compatibility
+- Docker containerization for isolated and reproducible execution
+- VM or bare metal deployment with Ubuntu 22.04
 
 ## Setup Instructions for Public Infrastructure
 
@@ -97,7 +105,40 @@ bash install.sh
 python3 download_data.py
 ```
 
-### 3. GPU Setup (Optional but Recommended)
+### 3. Docker Setup (Recommended for Reproducible Environment)
+
+For the most reproducible and isolated execution environment, we recommend using Docker with Ubuntu 22.04:
+
+```bash
+# Run Docker container with GPU support (if available)
+docker run -d -i -t \
+  -v /path/to/PixelPatrol3D_Code_ACSAC_Artifacts:/mnt/pp3d \
+  --ipc=host \
+  --gpus '"device=0"' \
+  ubuntu:22.04 /bin/bash
+
+# For CPU-only execution (no GPU required)
+docker run -d -i -t \
+  -v /path/to/PixelPatrol3D_Code_ACSAC_Artifacts:/mnt/pp3d \
+  --ipc=host \
+  ubuntu:22.04 /bin/bash
+
+# Enter the container
+docker exec -it <container_id> /bin/bash
+
+# Inside the container, navigate to the artifact
+cd /mnt/pp3d
+
+# Run the installation script (tested and verified on Ubuntu 22.04)
+bash install.sh
+
+# Download dataset
+python3 download_data.py
+```
+
+**Note**: Replace `/path/to/PixelPatrol3D_Code_ACSAC_Artifacts` with the actual path to your artifact directory on the host system.
+
+### 4. GPU Setup (Optional but Recommended)
 
 ```bash
 # For NVIDIA GPU support

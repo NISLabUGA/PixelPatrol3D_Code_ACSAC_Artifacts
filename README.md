@@ -49,10 +49,14 @@ We do not provide explicit test cases for the following components:
 - Python 3.8 or higher
 - CUDA 11.0+ (optional but recommended for GPU acceleration)
 - Linux or macOS (Windows may work but is untested)
+- **Recommended**: Ubuntu 22.04 LTS (extensively tested environment)
+- **Docker**: Recommended for reproducible execution (see `infrastructure/README.md`)
 
 ### Dependencies
 
 All Python dependencies are listed in requirements.txt and will be installed automatically.
+
+**Note**: The `install.sh` script has been extensively tested on Ubuntu 22.04. For maximum reproducibility, consider using Docker with the `ubuntu:22.04` image as detailed in the infrastructure documentation.
 
 ## Quick Start
 
