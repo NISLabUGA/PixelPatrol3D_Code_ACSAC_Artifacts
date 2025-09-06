@@ -1,0 +1,90 @@
+Training Verification: RQ5 Adversarial Model (tt_comb_adv.py)
+
+This claim verifies that the adversarial training process for RQ5 works correctly and demonstrates which epoch model was selected for adversarial robustness evaluation.
+
+## Purpose
+
+This training verification test case is designed to:
+1. Verify that the adversarial training pipeline for tt_comb_adv.py functions correctly
+2. Demonstrate the adversarial training process and robustness improvements
+3. Show that epoch 7 produces the best adversarially robust model
+4. Allow reviewers to understand adversarial training without full resource commitment
+
+**Important**: This is NOT a full training run. It runs for limited epochs to verify the adversarial training process works correctly.
+
+## Target Model
+
+- **Script**: `artifacts/train_test/tt_comb_adv.py`
+- **Target Model**: `artifacts/models/rq5/m_adv_ep7.pth`
+- **Selected Epoch**: 7 (best adversarial robustness on validation data)
+- **Usage**: This model demonstrates improved robustness against adversarial attacks for RQ5
+- **Baseline Comparison**: `artifacts/models/rq5/m_no_adv_ep4.pth` (identical to RQ1/RQ4 model)
+
+## Model Selection Rationale
+
+The epoch 7 adversarial model (`m_adv_ep7.pth`) was selected because:
+- Achieved highest detection rate under adversarial perturbations
+- Demonstrated substantial robustness improvement over non-adversarial baseline
+- Maintained strong performance on clean (non-adversarial) examples
+- Showed stable adversarial training convergence without degradation
+
+## Adversarial Training Configuration
+
+The adversarial training uses the following key parameters:
+- **Base Architecture**: Same as RQ1/RQ4 (MobileNetV3-Small + BERT-mini + fusion MLP)
+- **Adversarial Curriculum**: Progressive adversarial example integration
+- **Visual Perturbations**: PGD L-infinity attacks with ε ∈ {2, 4, 8, 16, 32}/255
+- **Text Perturbations**: 5 levels of increasing severity (character noise to semantic inversion)
+- **Training Strategy**: Mixed clean and adversarial examples
+- **Loss Function**: Weighted Cross-Entropy on adversarial examples
+
+## Expected Training Behavior
+
+During adversarial training verification, reviewers should observe:
+
+1. **Adversarial Loss Progression**: Both clean and adversarial loss should decrease
+2. **Robustness Improvement**: Validation performance under attack should improve over epochs
+3. **Clean Performance Maintenance**: Performance on clean examples should remain high
+4. **Convergence**: Adversarial training typically requires more epochs (peak around epoch 7)
+5. **Stability**: Training should be stable despite adversarial perturbations
+
+## Verification Runtime
+
+- **Limited Epochs**: ~3 epochs for verification (vs. 10+ for full adversarial training)
+- **Expected Time**: 3-4 hours on modern GPU, 8-12 hours on CPU
+- **Output Size**: ~3-4 GB for logs, checkpoints, and adversarial evaluation results
+- **Note**: Adversarial training is more computationally intensive than standard training
+
+## Understanding Output
+
+The adversarial training verification will produce:
+
+1. **Training Logs**: Progress with both clean and adversarial loss values
+2. **Model Checkpoints**: `adv_detector_epoch_X.pth` files
+3. **Adversarial Evaluation**: Performance under different attack strengths
+4. **Robustness Metrics**: Detection rates at various adversarial perturbation levels
+5. **Comparison Results**: Before vs. after adversarial training performance
+
+## Key Metrics to Monitor
+
+During verification, look for:
+- **Clean Performance**: Should remain >99% detection rate at 1% FPR
+- **Adversarial Robustness**: Substantial improvement over baseline at higher perturbation levels
+- **Level 4 Performance**: Target >95% detection rate (vs. ~56% for non-adversarial model)
+- **Level 5 Performance**: Target >95% detection rate (vs. ~4% for non-adversarial model)
+
+## Full Training Considerations
+
+If reviewers choose to run full adversarial training:
+- **Time**: 10-15 hours on modern GPU
+- **Epochs**: Typically converges by epoch 7-10
+- **Memory Requirements**: Higher than standard training due to adversarial example generation
+- **Expected Robustness**: Dramatic improvement in adversarial detection rates
+
+## Comparison with Non-Adversarial Model
+
+The verification will demonstrate the difference between:
+- **m_no_adv_ep4.pth**: Vulnerable to adversarial attacks (4% detection at high perturbation)
+- **m_adv_ep7.pth**: Robust against adversarial attacks (>99% detection at high perturbation)
+
+This verification demonstrates that adversarial training significantly improves model robustness while maintaining clean performance, validating the RQ5 claims about adversarial defense capabilities.

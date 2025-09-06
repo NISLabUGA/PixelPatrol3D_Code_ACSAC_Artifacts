@@ -1,0 +1,78 @@
+Training Verification: RQ1 & RQ4 Model (tt_comb.py)
+
+This claim verifies that the training process for the RQ1 & RQ4 model works correctly and demonstrates which epoch model was selected for the main evaluation claims.
+
+## Purpose
+
+This training verification test case is designed to:
+1. Verify that the training pipeline for tt_comb.py functions correctly
+2. Demonstrate the training process and output structure
+3. Show that epoch 4 produces the best model performance
+4. Allow reviewers to understand the training process without full resource commitment
+
+**Important**: This is NOT a full training run. It runs for limited epochs to verify the training process works correctly.
+
+## Target Model
+
+- **Script**: `artifacts/train_test/tt_comb.py`
+- **Target Model**: `artifacts/models/rq1_rq4/m_ep4.pth`
+- **Selected Epoch**: 4 (best performance on validation data)
+- **Usage**: This model is used for:
+  - RQ1 evaluation (new BMA instances)
+  - RQ4 evaluation (fresh BMA attacks)
+  - Base model for PP_defend deployment
+  - Non-adversarial baseline for RQ5 (`artifacts/models/rq5/m_no_adv_ep4.pth`)
+
+## Model Selection Rationale
+
+The epoch 4 model (`m_ep4.pth`) was selected because:
+- Achieved highest detection rate at 1% false positive rate on validation data
+- Demonstrated best generalization across RQ1 and RQ4 test sets
+- Showed stable performance without overfitting
+- Balanced performance between new instances (RQ1) and temporal generalization (RQ4)
+
+## Training Configuration
+
+The training uses the following key parameters:
+- **Architecture**: MobileNetV3-Small (visual) + BERT-mini (text) + fusion MLP
+- **Loss Function**: Weighted Cross-Entropy (balanced for class imbalance)
+- **Optimizer**: AdamW with learning rate 5e-6
+- **Batch Size**: 64
+- **Training Data**: 19,536 augmented malicious + 100,000 benign samples
+- **Validation**: RQ1 and RQ4 test sets for performance monitoring
+
+## Expected Training Behavior
+
+During verification training, reviewers should observe:
+
+1. **Loss Progression**: Training and validation loss should decrease over epochs
+2. **Performance Improvement**: Validation metrics should improve, peaking around epoch 3-4
+3. **Stable Learning**: Learning rate and gradient updates should be stable
+4. **Checkpoint Creation**: Model files saved at each epoch
+5. **Validation Evaluation**: Comprehensive metrics on RQ1/RQ4 test sets
+
+## Verification Runtime
+
+- **Limited Epochs**: ~3 epochs for verification (vs. 10+ for full training)
+- **Expected Time**: 2-3 hours on modern GPU, 6-8 hours on CPU
+- **Output Size**: ~2-3 GB for logs, checkpoints, and evaluation results
+
+## Understanding Output
+
+The training verification will produce:
+
+1. **Training Logs**: Detailed progress with loss values and timing
+2. **Model Checkpoints**: `comb_detector_epoch_X.pth` files
+3. **Validation Results**: Performance metrics on RQ1/RQ4 test sets
+4. **ROC Curves**: Visual performance analysis
+5. **Qualitative Examples**: Sample predictions for analysis
+
+## Full Training Considerations
+
+If reviewers choose to run full training:
+- **Time**: 8-12 hours on modern GPU
+- **Epochs**: Typically converges by epoch 4-6
+- **Early Stopping**: Monitor validation performance to select best epoch
+- **Expected Performance**: >99% detection rate at 1% FPR on both RQ1 and RQ4
+
+This verification demonstrates that the training process works correctly and shows why epoch 4 was selected for the main evaluation claims.

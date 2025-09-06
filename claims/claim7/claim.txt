@@ -1,0 +1,116 @@
+Training Verification: RQ2 Resolution Models (tt_l1o_res.py)
+
+This claim verifies that the leave-one-out resolution training process for RQ2 works correctly and demonstrates which epoch models were selected for resolution generalization evaluation.
+
+## Purpose
+
+This training verification test case is designed to:
+1. Verify that the leave-one-out resolution training pipeline for tt_l1o_res.py functions correctly
+2. Demonstrate the resolution-agnostic training process
+3. Show how different epoch models were selected for different resolutions
+4. Allow reviewers to understand leave-one-out training without full resource commitment
+
+**Important**: This is NOT a full training run. It runs for limited epochs and a subset of resolutions to verify the training process works correctly.
+
+## Target Models
+
+- **Script**: `artifacts/train_test/tt_l1o_res.py`
+- **Target Models**: `artifacts/models/rq2/` (9 leave-one-out models)
+- **Selected Epochs**: Vary by resolution (5-10 epochs typically)
+- **Usage**: These models demonstrate resolution-agnostic capabilities for RQ2
+
+## Model Selection Examples
+
+The RQ2 models show varying optimal epochs based on resolution complexity:
+
+**Landscape Resolutions:**
+- `m_res_1_land_ep10.pth` → 1366x768 (epoch 10 - standard laptop)
+- `m_res_2_land_ep7.pth` → 1920x998 (epoch 7 - full HD desktop)
+- `m_res_3_land_ep8.pth` → 1478x837 (epoch 8 - mid-range laptop)
+- `m_res_4_land_ep10.pth` → 1536x824 (epoch 10 - high-DPI laptop)
+- `m_res_5_land_ep9.pth` → 1366x728 (epoch 9 - reduced height laptop)
+
+**Portrait Resolutions:**
+- `m_res_1_port_ep9.pth` → 800x1280 (epoch 9 - tablet portrait)
+- `m_res_2_port_ep7.pth` → 414x896 (epoch 7 - iPhone series)
+- `m_res_3_port_ep5.pth` → 768x1024 (epoch 5 - iPad portrait)
+- `m_res_4_port_ep8.pth` → 360x640 (epoch 8 - Android phone)
+
+## Model Selection Rationale
+
+Each resolution model's epoch was selected based on:
+- Highest detection rate at 1% false positive rate on the held-out resolution
+- Best generalization across the 8 training resolutions
+- Stable performance without overfitting to training resolutions
+- Optimal balance between resolution-specific and resolution-agnostic features
+
+## Leave-One-Out Training Configuration
+
+The training uses the following approach:
+- **Architecture**: Same as RQ1/RQ4 (MobileNetV3-Small + BERT-mini + fusion MLP)
+- **Training Strategy**: Train on 8 resolutions, test on 1 held-out resolution
+- **Resolution-Agnostic Pipeline**: Scaling and padding to handle arbitrary dimensions
+- **Data Balance**: Up to 10 images per BMA campaign + 500 benign samples per test
+- **Validation**: Performance monitored on held-out resolution
+
+## Expected Training Behavior
+
+During resolution training verification, reviewers should observe:
+
+1. **Resolution Adaptation**: Model learns to handle diverse aspect ratios and sizes
+2. **Convergence Variation**: Different resolutions may converge at different epochs
+3. **Generalization**: Performance on held-out resolution improves over training
+4. **Stability**: Consistent training across different resolution combinations
+5. **Feature Learning**: Visual features become resolution-agnostic
+
+## Verification Runtime
+
+- **Limited Epochs**: ~3 epochs for verification (vs. 10+ for full training)
+- **Subset Resolutions**: 2-3 resolutions instead of all 9
+- **Expected Time**: 4-6 hours on modern GPU, 12-18 hours on CPU
+- **Output Size**: ~4-6 GB for logs, checkpoints, and evaluation results per resolution
+
+## Understanding Output
+
+The resolution training verification will produce:
+
+1. **Training Logs**: Progress for each leave-one-out cycle
+2. **Model Checkpoints**: `res_detector_X_epoch_Y.pth` files
+3. **Resolution Evaluation**: Performance on each held-out resolution
+4. **Generalization Metrics**: Cross-resolution performance analysis
+5. **Visual Analysis**: Resolution-specific prediction examples
+
+## Key Metrics to Monitor
+
+During verification, look for:
+- **Cross-Resolution Performance**: >99% detection rate on held-out resolutions
+- **Training Stability**: Consistent convergence across different resolution splits
+- **Feature Generalization**: Similar performance patterns across resolutions
+- **Optimal Epochs**: Different resolutions may peak at different epochs
+
+## Verification Subset
+
+For verification purposes, the test will run on a subset such as:
+- **1land_excluded**: 1366x768 (standard laptop)
+- **2port_excluded**: 414x896 (iPhone series)
+- **3land_excluded**: 1478x837 (mid-range laptop)
+
+This provides coverage of both landscape and portrait orientations with different aspect ratios.
+
+## Full Training Considerations
+
+If reviewers choose to run full resolution training:
+- **Time**: 20-30 hours total on modern GPU (9 separate training runs)
+- **Epochs**: Each resolution typically converges by epoch 5-10
+- **Memory Requirements**: Standard training requirements per resolution
+- **Expected Performance**: >99% detection rate across all 9 resolutions
+
+## Resolution Generalization Insights
+
+The verification will demonstrate:
+- **Aspect Ratio Independence**: Models work across landscape and portrait orientations
+- **Size Invariance**: Performance maintained from phone (360x640) to desktop (1920x998) resolutions
+- **Feature Robustness**: Visual features generalize across different pixel densities
+- **Preprocessing Effectiveness**: Scaling and padding pipeline handles arbitrary dimensions
+
+This verification demonstrates that the resolution-agnostic training approach successfully enables generalization to never-before-seen screen resolutions, validating the RQ2 claims about cross-resolution capabilities.

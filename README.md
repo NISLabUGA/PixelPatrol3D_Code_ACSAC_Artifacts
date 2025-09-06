@@ -140,6 +140,30 @@ Each claim directory contains:
 - **Runtime**: ~1 hour (2 model evaluations)
 - **Expected**: Substantial robustness improvement with adversarial training
 
+### Claim 5: Training Verification - RQ1 & RQ4 Model
+
+- **Runtime**: ~2-3 hours on GPU (limited epochs for verification)
+- **Purpose**: Verify training process and demonstrate epoch 4 selection
+- **Expected**: Training pipeline functions correctly, model checkpoints created
+
+### Claim 6: Training Verification - RQ5 Adversarial Model
+
+- **Runtime**: ~3-4 hours on GPU (limited epochs for verification)
+- **Purpose**: Verify adversarial training process and demonstrate epoch 7 selection
+- **Expected**: Adversarial training improves robustness while maintaining clean performance
+
+### Claim 7: Training Verification - RQ2 Resolution Models
+
+- **Runtime**: ~4-6 hours on GPU (limited epochs, subset of resolutions)
+- **Purpose**: Verify leave-one-out resolution training and demonstrate epoch selection
+- **Expected**: Resolution-agnostic training enables cross-resolution generalization
+
+### Claim 8: Training Verification - RQ3 Campaign Models
+
+- **Runtime**: ~5-7 hours on GPU (limited epochs, subset of campaigns)
+- **Purpose**: Verify leave-one-out campaign training and demonstrate epoch selection
+- **Expected**: Campaign-agnostic training enables cross-campaign generalization
+
 ## Expected Runtime
 
 - **Total evaluation time**: ~12 hours for all claims

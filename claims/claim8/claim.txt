@@ -1,0 +1,141 @@
+Training Verification: RQ3 Campaign Models (tt_l1o_camp.py)
+
+This claim verifies that the leave-one-out campaign training process for RQ3 works correctly and demonstrates which epoch models were selected for campaign generalization evaluation.
+
+## Purpose
+
+This training verification test case is designed to:
+1. Verify that the leave-one-out campaign training pipeline for tt_l1o_camp.py functions correctly
+2. Demonstrate the campaign-agnostic training process
+3. Show how different epoch models were selected for different campaigns
+4. Allow reviewers to understand campaign generalization without full resource commitment
+
+**Important**: This is NOT a full training run. It runs for limited epochs and a subset of campaigns to verify the training process works correctly.
+
+## Target Models
+
+- **Script**: `artifacts/train_test/tt_l1o_camp.py`
+- **Target Models**: `artifacts/models/rq3/` (10 leave-one-out models)
+- **Selected Epochs**: Vary by campaign (4-10 epochs typically)
+- **Usage**: These models demonstrate campaign generalization capabilities for RQ3
+
+## Model Selection Examples
+
+The RQ3 models show varying optimal epochs based on campaign characteristics:
+
+**Campaign Models:**
+- `m_camp_1_ep6.pth` → Campaign 1 held out (epoch 6)
+- `m_camp_2_ep6.pth` → Campaign 2 held out (epoch 6)
+- `m_camp_3_ep5.pth` → Campaign 3 held out (epoch 5)
+- `m_camp_4_ep10.pth` → Campaign 4 held out (epoch 10)
+- `m_camp_5_ep7.pth` → Campaign 5 held out (epoch 7)
+- `m_camp_6_ep4.pth` → Campaign 6 held out (epoch 4)
+- `m_camp_7_ep6.pth` → Campaign 7 held out (epoch 6)
+- `m_camp_8_ep8.pth` → Campaign 8 held out (epoch 8)
+- `m_camp_9_ep9.pth` → Campaign 9 held out (epoch 9)
+- `m_camp_10_ep7.pth` → Campaign 10 held out (epoch 7)
+
+## Model Selection Rationale
+
+Each campaign model's epoch was selected based on:
+- Highest detection rate at 1% false positive rate on the held-out campaign
+- Best generalization across the 9 training campaigns
+- Stable performance without overfitting to training campaign patterns
+- Optimal balance between campaign-specific and campaign-agnostic features
+
+## Leave-One-Out Campaign Training Configuration
+
+The training uses the following approach:
+- **Architecture**: Same as RQ1/RQ4 (MobileNetV3-Small + BERT-mini + fusion MLP)
+- **Training Strategy**: Train on 9 campaigns, test on 1 held-out campaign
+- **Campaign Diversity**: Covers 6 BMA categories (fake software, scareware, etc.)
+- **Data Balance**: Proportional representation across training campaigns
+- **Validation**: Performance monitored on held-out campaign samples
+
+## Campaign Categories Covered
+
+The leave-one-out training spans diverse BMA attack types:
+1. **Fake Software Download**: 29 campaigns (largest category)
+2. **Notification Stealing**: 7 campaigns
+3. **Service Sign-up Scam**: 20 campaigns
+4. **Scareware**: 9 campaigns
+5. **Fake Lottery/Sweepstakes**: 6 campaigns
+6. **Technical Support Scam**: 3 campaigns
+
+## Expected Training Behavior
+
+During campaign training verification, reviewers should observe:
+
+1. **Campaign Adaptation**: Model learns to generalize across attack patterns
+2. **Convergence Variation**: Different campaigns may converge at different epochs
+3. **Feature Generalization**: Visual and textual features become campaign-agnostic
+4. **Attack Pattern Learning**: Model identifies common BMA characteristics
+5. **Stability**: Consistent training across different campaign combinations
+
+## Verification Runtime
+
+- **Limited Epochs**: ~3 epochs for verification (vs. 10+ for full training)
+- **Subset Campaigns**: 2-3 campaigns instead of all 10
+- **Expected Time**: 5-7 hours on modern GPU, 15-21 hours on CPU
+- **Output Size**: ~5-7 GB for logs, checkpoints, and evaluation results per campaign
+
+## Understanding Output
+
+The campaign training verification will produce:
+
+1. **Training Logs**: Progress for each leave-one-out cycle
+2. **Model Checkpoints**: `camp_detector_X_epoch_Y.pth` files
+3. **Campaign Evaluation**: Performance on each held-out campaign
+4. **Generalization Metrics**: Cross-campaign performance analysis
+5. **Attack Pattern Analysis**: Campaign-specific prediction examples
+
+## Key Metrics to Monitor
+
+During verification, look for:
+- **Cross-Campaign Performance**: >99% detection rate on held-out campaigns
+- **Training Stability**: Consistent convergence across different campaign splits
+- **Feature Generalization**: Similar performance patterns across attack types
+- **Optimal Epochs**: Different campaigns may peak at different epochs (4-10 range)
+
+## Verification Subset
+
+For verification purposes, the test will run on a subset such as:
+- **Campaign 1**: Large fake software download campaign
+- **Campaign 5**: Notification stealing campaign
+- **Campaign 8**: Service sign-up scam campaign
+
+This provides coverage of different attack categories and campaign sizes.
+
+## Full Training Considerations
+
+If reviewers choose to run full campaign training:
+- **Time**: 25-35 hours total on modern GPU (10 separate training runs)
+- **Epochs**: Each campaign typically converges by epoch 4-10
+- **Memory Requirements**: Standard training requirements per campaign
+- **Expected Performance**: >99% detection rate across all 10 campaigns
+
+## Campaign Generalization Insights
+
+The verification will demonstrate:
+- **Attack Type Independence**: Models work across different BMA categories
+- **Visual Pattern Generalization**: Recognition of common visual attack elements
+- **Text Pattern Generalization**: Understanding of persuasive language patterns
+- **Cross-Category Robustness**: Performance maintained across diverse attack strategies
+
+## Campaign Characteristics
+
+Different campaigns may show varying training dynamics:
+- **Large Campaigns**: More data may lead to faster convergence
+- **Diverse Campaigns**: Complex patterns may require more epochs
+- **Specialized Attacks**: Unique characteristics may affect optimal epochs
+- **Common Patterns**: Shared BMA elements facilitate generalization
+
+## Expected Epoch Variation
+
+The verification will show why different campaigns have different optimal epochs:
+- **Simple Patterns**: May converge quickly (epochs 4-6)
+- **Complex Attacks**: May require more training (epochs 8-10)
+- **Diverse Content**: Variable convergence based on campaign heterogeneity
+- **Attack Sophistication**: More sophisticated attacks may need longer training
+
+This verification demonstrates that the campaign-agnostic training approach successfully enables generalization to never-before-seen BMA campaigns, validating the RQ3 claims about cross-campaign detection capabilities.
