@@ -200,12 +200,13 @@ For issues with this artifact:
 
 If you use this artifact, please cite:
 
-```
-@inproceedings{pixelpatrol3d2025,
+```bibtex
+@inproceedings{pp3d2025,
   title={PP3D: An In-Browser Vision-Based Defense Against Web Behavior Manipulation Attacks},
   author={[Authors]},
   booktitle={Annual Computer Security Applications Conference (ACSAC)},
-  year={2025}
+  year={2025},
+  publisher={ACM}
 }
 ```
 
