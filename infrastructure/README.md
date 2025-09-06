@@ -10,11 +10,14 @@ The PP3D artifact is designed to be **fully compatible with public cloud infrast
 
 #### 1. **Google Colab** (Recommended for Quick Evaluation)
 
-- **Compatibility**: ✅ Fully supported
+- **Compatibility**: ✅ Supported with limitations
 - **GPU Access**: Available with Colab Pro for faster evaluation
-- **Storage**: Sufficient for dataset (Google Drive integration available)
+- **Storage**: **Limited** - 500GB dataset may require Google Drive Pro or external storage
 - **Setup**: Standard Python environment with pip package installation
-- **Limitations**: Session timeouts may require splitting long evaluations
+- **Limitations**:
+  - Session timeouts (12-24 hours max) may interrupt long evaluations
+  - Storage constraints may require careful dataset management
+  - Network download speeds may vary
 
 #### 2. **SPHERE**
 
@@ -50,8 +53,8 @@ The PP3D artifact is designed to be **fully compatible with public cloud infrast
 
 - **CPU**: 4 cores (any modern x86_64 processor)
 - **RAM**: 8GB (16GB recommended for faster processing)
-- **Storage**: 500GB free space
-- **Network**: Stable internet connection for dataset download
+- **Storage**: 500GB free space (**Note**: This is substantial - verify platform storage limits)
+- **Network**: Stable internet connection for dataset download (218GB download required)
 - **OS**: Linux (Ubuntu 22.04 recommended, Ubuntu 18.04+, CentOS 7+) or macOS
 
 ### Recommended Configuration
@@ -72,26 +75,7 @@ The artifact has been extensively tested on **Ubuntu 22.04** and the `install.sh
 
 ## Setup Instructions for Public Infrastructure
 
-### 1. Environment Preparation
-
-```bash
-# Update system packages
-sudo apt update && sudo apt upgrade -y  # Ubuntu/Debian
-# or
-sudo yum update -y  # CentOS/RHEL
-
-# Install Python 3.8+ if not available
-sudo apt install python3 python3-pip python3-venv  # Ubuntu/Debian
-# or
-sudo yum install python3 python3-pip  # CentOS/RHEL
-
-# Install git if not available
-sudo apt install git  # Ubuntu/Debian
-# or
-sudo yum install git  # CentOS/RHEL
-```
-
-### 2. Artifact Setup
+### 1. Artifact Setup
 
 ```bash
 # Clone or download the artifact
@@ -105,7 +89,7 @@ bash install.sh
 python3 download_data.py
 ```
 
-### 3. Docker Setup (Recommended for Reproducible Environment)
+### 2. Docker Setup (Recommended for Reproducible Environment)
 
 For the most reproducible and isolated execution environment, we recommend using Docker with Ubuntu 22.04:
 
@@ -138,7 +122,7 @@ python3 download_data.py
 
 **Note**: Replace `/path/to/PixelPatrol3D_Code_ACSAC_Artifacts` with the actual path to your artifact directory on the host system.
 
-### 4. GPU Setup (Optional but Recommended)
+### 3. GPU Setup (Optional but Recommended)
 
 ```bash
 # For NVIDIA GPU support
@@ -153,10 +137,14 @@ python3 -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
 
 ### Google Colab
 
-- **Dataset Storage**: Use Google Drive mount for persistent dataset storage
-- **Session Management**: Save intermediate results to prevent loss during timeouts
-- **GPU Access**: Enable GPU runtime in notebook settings
+- **Dataset Storage**: **Challenge** - 500GB dataset exceeds free Google Drive (15GB). Consider:
+  - Google Drive Pro subscription (2TB for $10/month)
+  - Download dataset in chunks and process sequentially
+  - Use external cloud storage integration
+- **Session Management**: **Critical** - Save intermediate results frequently due to timeouts
+- **GPU Access**: Enable GPU runtime in notebook settings (limited hours on free tier)
 - **Memory Management**: Monitor RAM usage, restart runtime if needed
+- **Recommendation**: Best suited for individual claims rather than full evaluation
 
 ### SPHERE/Chameleon/CloudLab/FABRIC
 
@@ -182,14 +170,6 @@ cd ../claim4 && bash run.sh
 ```bash
 # Run multiple claims in parallel if resources allow
 # Monitor system resources to avoid overloading
-```
-
-### Option 3: Subset Evaluation (For Quick Validation)
-
-```bash
-# Start with smaller claims for quick validation
-cd claims/claim1 && bash run.sh  # <10 minutes
-cd ../claim4 && bash run.sh      # <30 minutes
 ```
 
 ## Expected Performance on Public Infrastructure
@@ -223,49 +203,67 @@ cd ../claim4 && bash run.sh      # <30 minutes
 
    - Use `python3 download_data.py --no-extract` to download only
    - Extract files separately: `python3 download_data.py --verify-only`
+   - **For constrained environments**: Contact authors for alternative download methods
 
 2. **Memory Limitations**
 
    - Reduce batch sizes in evaluation scripts
    - Run claims sequentially instead of parallel
    - Use swap space if available
+   - **Severe limitations**: Focus on Claim 1 only for core validation
 
 3. **Storage Limitations**
 
    - Use `python3 download_data.py --cleanup` to remove zip files after extraction
    - Download only required datasets for specific research questions
+   - **Critical limitation**: 500GB requirement may exceed some platform limits
 
 4. **Network Connectivity**
 
    - Verify outbound HTTPS access to pp3d-data.sdkhomelab.com
    - Use alternative download methods if direct access is blocked
+   - **Restricted networks**: May require pre-downloaded dataset transfer
 
 5. **GPU Access Issues**
 
    - Verify CUDA installation and compatibility
    - Fall back to CPU-only execution if GPU unavailable
    - Check platform-specific GPU allocation procedures
+   - **No GPU access**: Expect 2-4x longer execution times
 
-## Cost Estimation for Public Cloud Platforms
+6. **Platform-Specific Limitations**
 
-### Google Colab
+   - **Google Colab**: Storage and session timeout constraints
+   - **Research Platforms**: May require allocation approval and scheduling
+   - **Commercial Cloud**: Costs may accumulate for large dataset storage
 
-- **Free Tier**: Sufficient for basic evaluation (with session management)
-- **Colab Pro**: ~$10/month, recommended for full evaluation with GPU
+## Important Limitations and Considerations
 
-### Commercial Cloud Platforms (AWS/GCP/Azure)
+### Storage Requirements
 
-- **CPU Instance**: ~$50-100 for complete evaluation
-- **GPU Instance**: ~$100-200 for complete evaluation
-- **Storage**: ~$20-30 for dataset storage
+- **500GB dataset** is substantial and may exceed free tier limits on some platforms
+- **Verify storage availability** before beginning download
+- Consider **cost implications** for cloud storage on commercial platforms
 
-### Research Platforms (SPHERE/Chameleon/CloudLab/FABRIC)
+### Network Requirements
 
-- **Cost**: Free for academic research use
-- **Allocation**: Requires research project allocation/proposal
+- **218GB download** requires stable, high-bandwidth connection
+- Some institutional or restricted networks may block large downloads
+- **Plan for several hours** of download time depending on connection speed
+
+### Platform Suitability
+
+- **Google Colab**: Best for individual claims, challenging for full evaluation
+- **Research Platforms**: Excellent for full evaluation but may require allocation approval
+- **Commercial Cloud**: Fully capable but consider storage and compute costs
 
 ## Conclusion
 
-The PP3D artifact is fully compatible with public infrastructure and does not require any special hardware, proprietary systems, or restricted access. The evaluation can be successfully completed on any of the recommended public platforms with standard computational resources.
+The PP3D artifact is **compatible with public infrastructure** but has **significant resource requirements** (500GB storage, 218GB download). While the evaluation can be completed on the recommended platforms, reviewers should:
 
-For questions about specific platform setup or troubleshooting, please refer to the main README.md or contact the artifact authors.
+1. **Verify storage capacity** before starting
+2. **Plan for substantial download time** (218GB dataset)
+3. **Consider platform limitations** (especially Google Colab storage constraints)
+4. **Start with individual claims** to validate setup before full evaluation
+
+For questions about specific platform setup, alternative approaches for constrained environments, or troubleshooting, please refer to the main README.md or contact the artifact authors.
