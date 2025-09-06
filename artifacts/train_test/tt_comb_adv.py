@@ -128,7 +128,7 @@ LEVEL_EPS = {1:  2/255,
              5: 32/255}
 
 PGD_STEPS   = 10         # Typical PGD iteration count
-PGD_RANDOM_START  = True # Random-start PGD improves attack success
+PGD_RANDOM_START  = False # Set to False here for better reproducability
 
 # Optional pretrained inference-only path
 USE_PT_MODEL = args.use_pt_model
@@ -172,10 +172,10 @@ SHOW_TN = False
 
 # Output root: logs, checkpoints, metrics, and qualitative samples
 OUT_DIR = f"./out/comb_adv_test"
-if PT_MODEL_PATH = "../models/rq5/m_adv_ep7.pth":
-    OUT_DIR = f"./out/comb_adv"
-if PT_MODEL_PATH = "../models/rq5/m_no_adv_ep4.pth":
-    OUT_DIR = f"./out/comb_no_adv"
+if PT_MODEL_PATH == "../models/rq5/m_adv_ep7.pth":
+    OUT_DIR = f"./out_3/comb_adv"
+if PT_MODEL_PATH == "../models/rq5/m_no_adv_ep4.pth":
+    OUT_DIR = f"./out_3/comb_no_adv"
 
 os.makedirs(OUT_DIR, exist_ok=True)
 
