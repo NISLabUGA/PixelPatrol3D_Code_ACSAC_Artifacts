@@ -25,11 +25,11 @@ echo ""
 cd ../../artifacts/train_test
 
 echo "Starting training verification with limited epochs..."
-echo "Command: python3 tt_comb.py --epochs 3 --batch_size 32"
+echo "Command: python3 tt_comb.py --epochs 4 --batch_size 32"
 echo ""
 
 # Run training verification with limited epochs and smaller batch size for verification
-python3 tt_comb.py --epochs 3 --batch_size 32
+python3 tt_comb.py --epochs 4 --batch_size 32
 
 echo ""
 echo "=========================================="

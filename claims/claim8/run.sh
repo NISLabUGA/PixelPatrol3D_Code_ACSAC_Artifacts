@@ -25,8 +25,8 @@ echo ""
 # Navigate to training directory
 cd ../../artifacts/train_test
 
-echo "Starting campaign training verification with limited epochs and subset..."
-echo "Command: python3 tt_l1o_camp.py --epochs 3 --batch_size 32 --subset 2"
+echo "Starting campaign training verification with limited epochs..."
+echo "Command: python3 tt_l1o_camp.py --epochs 10 --batch_size 32"
 echo ""
 echo "Campaign Categories Covered:"
 echo "1. Fake Software Download: 29 campaigns (largest category)"
@@ -38,7 +38,7 @@ echo "6. Technical Support Scam: 3 campaigns"
 echo ""
 
 # Run campaign training verification with limited epochs and subset of campaigns
-python3 tt_l1o_camp.py --epochs 3 --batch_size 32 --subset 2
+python3 tt_l1o_camp.py --epochs 10 --batch_size 32
 
 echo ""
 echo "=========================================="

@@ -173,9 +173,9 @@ SHOW_TN = False
 # Output root: logs, checkpoints, metrics, and qualitative samples
 OUT_DIR = f"./out/comb_adv_test"
 if PT_MODEL_PATH == "../models/rq5/m_adv_ep7.pth":
-    OUT_DIR = f"./out_3/comb_adv"
+    OUT_DIR = f"./out/comb_adv"
 if PT_MODEL_PATH == "../models/rq5/m_no_adv_ep4.pth":
-    OUT_DIR = f"./out_3/comb_no_adv"
+    OUT_DIR = f"./out/comb_no_adv"
 
 os.makedirs(OUT_DIR, exist_ok=True)
 

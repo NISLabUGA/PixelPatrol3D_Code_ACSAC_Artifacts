@@ -25,8 +25,8 @@ echo ""
 # Navigate to training directory
 cd ../../artifacts/train_test
 
-echo "Starting resolution training verification with limited epochs and subset..."
-echo "Command: python3 tt_l1o_res.py --epochs 3 --batch_size 32 --subset 2"
+echo "Starting resolution training verification with limited epochs..."
+echo "Command: python3 tt_l1o_res.py --epochs 10 --batch_size 32"
 echo ""
 echo "Resolution Mapping for Reference:"
 echo "- 1land_excluded → 1366x768 (Standard laptop)"
@@ -41,7 +41,7 @@ echo "- 4port_excluded → 360x640 (Android phone)"
 echo ""
 
 # Run resolution training verification with limited epochs and subset of resolutions
-python3 tt_l1o_res.py --epochs 3 --batch_size 32 --subset 2
+python3 tt_l1o_res.py --epochs 10 --batch_size 32
 
 echo ""
 echo "=========================================="
