@@ -158,18 +158,41 @@ python3 -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
 ### Option 1: Sequential Execution (Recommended for Limited Resources)
 
 ```bash
-# Run claims one at a time to manage resource usage
+# Run core evaluation claims (1-4) one at a time
 cd claims/claim1 && bash run.sh
 cd ../claim2 && bash run.sh
 cd ../claim3 && bash run.sh
 cd ../claim4 && bash run.sh
+
+# Run training verification claims (5-8) one at a time
+cd ../claim5 && bash run.sh
+cd ../claim6 && bash run.sh
+cd ../claim7 && bash run.sh
+cd ../claim8 && bash run.sh
 ```
 
 ### Option 2: Parallel Execution (For High-Resource Environments)
 
 ```bash
-# Run multiple claims in parallel if resources allow
+# Claims 1-4 can run independently in parallel
+# Claims 5-8 can run independently in parallel
 # Monitor system resources to avoid overloading
+```
+
+### Option 3: Modular Evaluation
+
+```bash
+# Core evaluation only (Claims 1-4): ~2 hours
+cd claims/claim1 && bash run.sh  # <10 minutes
+cd ../claim2 && bash run.sh      # <30 minutes
+cd ../claim3 && bash run.sh      # <30 minutes
+cd ../claim4 && bash run.sh      # <30 minutes
+
+# Training verification only (Claims 5-8): ~2-3 hours
+cd ../claim5 && bash run.sh      # ~15-30 minutes
+cd ../claim6 && bash run.sh      # ~45-90 minutes
+cd ../claim7 && bash run.sh      # ~15-30 minutes
+cd ../claim8 && bash run.sh      # ~15-30 minutes
 ```
 
 ## Expected Performance on Public Infrastructure

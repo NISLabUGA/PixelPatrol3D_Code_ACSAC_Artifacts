@@ -1,0 +1,142 @@
+ACSAC 2025 Artifact Submission Abstract
+
+Paper Title: PP3D: An In-Browser Vision-Based Defense Against Web Behavior Manipulation Attacks
+
+ARTIFACT DESCRIPTION
+
+This artifact provides a comprehensive evaluation framework for PP_detect, the core machine learning component of the PixelPatrol3D system. The artifact enables reproducible evaluation of all major research questions presented in the paper through pre-trained models, evaluation scripts, and standardized datasets.
+
+ARTIFACT COMPONENTS
+
+Software Components:
+- Type: Source code and pre-trained models
+- Language: Python 3.8+
+- Key Dependencies: PyTorch, Transformers, OpenCV, scikit-learn
+- Architecture: Multimodal classifier combining MobileNetV3-Small (visual) + BERT-mini (text)
+- Installation: Automated via install.sh script
+- Execution: Standardized evaluation scripts with runtime <10 minutes to 90 minutes per claim
+
+Data Components:
+- Size: ~218GB compressed dataset (~270GB uncompressed)
+- Format: Structured directories with images (PNG/JPEG) and metadata (JSON/CSV)
+- Content: 19,536 BMA samples + 100,000 benign samples across multiple campaigns and resolutions
+- Schema: Hierarchical organization by research question, campaign, and resolution
+- Download: Automated with checksum verification via download_data.py
+
+PAPER SECTIONS EVALUATED
+
+Primary Evaluation Claims (Claims 1-4):
+- RQ1 & RQ4 (Claim 1): Section 6.1 - New BMA instances and temporal generalization
+- RQ2 (Claim 2): Section 6.2 - Cross-resolution generalization (9 leave-one-out evaluations)
+- RQ3 (Claim 3): Section 6.3 - Cross-campaign generalization (10 leave-one-out evaluations)
+- RQ5 (Claim 4): Section 6.4 - Adversarial robustness evaluation
+
+Training Verification Claims (Claims 5-8):
+- Claims 5-8: Demonstrate training pipeline functionality for each research question
+- Purpose: Verify training processes work correctly (not full reproducibility)
+- Approach: 1-2 epoch verification runs for cost-effective validation
+
+SYSTEM REQUIREMENTS
+
+Hardware Requirements:
+- Minimum: 8GB RAM, 4 CPU cores, 500GB storage
+- Recommended: 16GB+ RAM, 8+ CPU cores, NVIDIA GPU (8GB+ VRAM)
+- Critical: 500GB free storage for dataset and results
+
+Software Requirements:
+- OS: Linux (Ubuntu 22.04 recommended), macOS
+- Python: 3.8 or higher
+- CUDA: 11.0+ (optional but recommended)
+- Container: Docker support available for reproducible execution
+
+PUBLIC INFRASTRUCTURE COMPATIBILITY
+
+Fully Supported Platforms:
+- SPHERE: Recommended for full evaluation
+- Chameleon Cloud: Bare metal access, flexible allocation
+- CloudLab: Research-focused, high-performance nodes
+- FABRIC: High-performance research infrastructure
+
+Supported with Limitations:
+- Google Colab: Individual claims only (storage constraints for full evaluation)
+  Limitation: 500GB dataset exceeds free storage limits
+  Workaround: Google Drive Pro or external storage required
+
+Infrastructure Requirements:
+- Storage: 500GB persistent storage (verify platform limits)
+- Network: Stable connection for 218GB dataset download
+- GPU: Optional but recommended (2-4x speedup)
+- Access: Standard Linux environment with Python 3.8+
+
+EXPECTED RUNTIME AND RESOURCE USAGE
+
+Primary Evaluation Claims:
+- Claim 1 (RQ1 & RQ4): <10 minutes (GPU) / ~15-20 minutes (CPU)
+- Claim 2 (RQ2): <30 minutes (GPU) / ~45-60 minutes (CPU)
+- Claim 3 (RQ3): <30 minutes (GPU) / ~45-60 minutes (CPU)
+- Claim 4 (RQ5): <30 minutes (GPU) / ~45-60 minutes (CPU)
+
+Training Verification Claims:
+- Claim 5: ~15-30 minutes (1-2 epochs verification)
+- Claim 6: ~45-90 minutes (adversarial training verification)
+- Claim 7: ~15-30 minutes (resolution training verification)
+- Claim 8: ~15-30 minutes (campaign training verification)
+
+Total Evaluation Time:
+- All Claims: ~3-4 hours total
+- Core Claims Only (Claims 1-4): ~2 hours
+- Training Verification Only (Claims 5-8): ~2-3 hours
+- Parallel Execution: Claims 1-4 can run independently, Claims 5-8 can run independently
+
+REPRODUCIBILITY LEVEL TARGET
+
+Results Reproduced Badge:
+The artifact targets the "Results Reproduced" badge by providing:
+- Complete evaluation pipeline for all major paper claims
+- Pre-trained models eliminating training variability
+- Standardized datasets with verified checksums
+- Expected results with validation criteria for each claim
+- Automated execution via standardized run.sh scripts
+
+Key Reproducible Results:
+- RQ1: >99% detection rate at 1% FPR on new BMA instances
+- RQ2: >99% detection rate across all 9 held-out resolutions
+- RQ3: >99% detection rate across all 10 held-out campaigns
+- RQ4: >97% detection rate on temporally separated attacks
+- RQ5: Substantial robustness improvement with adversarial training
+
+ARTIFACT AVAILABILITY AND ACCESS
+
+Repository Access:
+- Primary: GitHub repository with complete artifact
+- URL: https://github.com/NISLabUGA/PixelPatrol3D_Code_ACSAC_Artifacts
+- Backup: Archive format available if needed
+- Permanence: Committed to permanent public availability
+
+Documentation Structure:
+- README.md: Comprehensive setup and execution guide
+- infrastructure/README.md: Public cloud compatibility guide
+- claims/*/expected/README.md: Detailed expected results per claim
+- license.txt: MIT License for broad reuse
+- use.txt: Intended use and limitations
+
+SPECIAL CONSIDERATIONS
+
+Dataset Download:
+- Size: 218GB download requires planning
+- Time: Several hours depending on connection speed
+- Verification: Automated checksum validation
+- Alternatives: Contact authors for constrained environments
+
+Scope Limitations:
+- Focus: PP_detect evaluation only (core contribution)
+- Excluded: PP_discover (data collection), PP_defend (browser extension)
+- Rationale: Resource efficiency while covering primary scientific contributions
+
+Evaluation Strategy:
+- Recommended: Start with Claim 1 for quick validation
+- Scalable: Claims 1-4 can run independently, Claims 5-8 can run independently
+- Flexible: Core evaluation (Claims 1-4) separate from training verification (Claims 5-8)
+- Fallback: CPU-only execution supported (longer runtime)
+
+This artifact provides a comprehensive, well-documented, and resource-efficient approach to reproducing the core experimental results of the PixelPatrol3D paper, designed specifically for the ACSAC artifact evaluation process.

@@ -167,8 +167,9 @@ Each claim directory contains:
 ## Expected Runtime
 
 - **Total evaluation time**: ~3-4 hours for all claims
-- **Individual claims**: <10 minutes to 90 minutes each
-- **Parallel execution**: Claims can be run independently
+- **Core evaluation (Claims 1-4)**: ~2 hours
+- **Training verification (Claims 5-8)**: ~2-3 hours
+- **Parallel execution**: Claims 1-4 can run independently, Claims 5-8 can run independently
 
 ## Key Results
 
