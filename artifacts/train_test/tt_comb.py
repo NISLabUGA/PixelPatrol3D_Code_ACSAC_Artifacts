@@ -41,6 +41,7 @@ import numpy as np
 from datetime import datetime
 import shutil
 import sys
+import argparse
 
 # For more stable but slower testing
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -50,13 +51,31 @@ os.environ["MASTER_ADDR"] = "localhost"
 os.environ["MASTER_PORT"] = "29500"
 
 # =========================
+# ===== ARGUMENT PARSING ===
+# =========================
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='PixelPatrol3D Adversarial Training Script')
+    parser.add_argument('--use_pt_model', type=bool, default=False, 
+                        help='Whether to use a pretrained model for evaluation only (default: False)')
+    parser.add_argument('--epochs', type=int, default=10, 
+                        help='Number of training epochs (default: 10)')
+    parser.add_argument('--batch_size', type=int, default=64, 
+                        help='Batch size for training and evaluation (default: 64)')
+    parser.add_argument('--pt_model_path', type=str, default="../models/rq1_rq4/m_ep4.pth",
+                        help='Path to pretrained model (default: ../models/rq1_rq4/m_ep4.pth)')
+    return parser.parse_args()
+
+# Parse command line arguments
+args = parse_arguments()
+
+# =========================
 # ===== CONFIGURATION =====
 # =========================
 # Image handling and training hyperparameters
 TARGET_IMG_SIZE = (1920, 1080)   # Target canvas for zero-padding (before scaling by IMG_SCALE_FACTOR)
 IMG_SCALE_FACTOR = 0.5           # Downscale factor applied to the padded canvas (memory/perf trade-off)
-BATCH_SIZE = 64
-EPOCHS = 15
+BATCH_SIZE = args.batch_size
+EPOCHS = args.epochs
 
 # Training control toggles
 USE_EARLY_STOPPING = False       # Early stopping is implemented but disabled by default
@@ -85,8 +104,8 @@ TOKENIZER = AutoTokenizer.from_pretrained("prajjwal1/bert-mini")
 NUM_WORKERS = 20                 # DataLoader workers (tune for your storage/CPU)
 
 # Optional pretrained model inference-only path
-USE_PT_MODEL = False
-PT_MODEL_PATH = "../models/m33_ep4.pth"
+USE_PT_MODEL = args.use_pt_model
+PT_MODEL_PATH = args.pt_model_path
 
 # -------------------------
 # Training/validation data

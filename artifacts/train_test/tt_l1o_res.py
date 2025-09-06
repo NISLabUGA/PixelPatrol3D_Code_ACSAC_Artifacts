@@ -42,6 +42,7 @@ import numpy as np
 from datetime import datetime
 import shutil
 import random
+import argparse
 
 # For more stable but slower testing
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -49,6 +50,22 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Configure default rendezvous for torch.distributed (single-node, localhost RDV)
 os.environ["MASTER_ADDR"] = "localhost"
 os.environ["MASTER_PORT"] = "29500"
+
+# ==========================
+# ===== ARGUMENT PARSING ===
+# ==========================
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='PixelPatrol3D Adversarial Training Script')
+    parser.add_argument('--use_pt_model', type=bool, default=False, 
+                        help='Whether to use a pretrained model for evaluation only (default: False)')
+    parser.add_argument('--epochs', type=int, default=10, 
+                        help='Number of training epochs (default: 10)')
+    parser.add_argument('--batch_size', type=int, default=64, 
+                        help='Batch size for training and evaluation (default: 64)')
+    return parser.parse_args()
+
+# Parse command line arguments
+args = parse_arguments()
 
 # =========================
 # ===== CONFIGURATION =====
@@ -58,8 +75,8 @@ TARGET_IMG_SIZE = (1920, 1080)   # logical canvas used for padding before transf
 IMG_SCALE_FACTOR = 0.5           # scale down target canvas for compute efficiency
 
 # Training hyperparameters
-BATCH_SIZE = 64
-EPOCHS = 10
+BATCH_SIZE = args.batch_size
+EPOCHS = args.epochs
 MAX_BENIGN_TEST_SAMPLES = 500    # cap benign test samples per eval to control runtime
 SEED = 123
 
@@ -93,18 +110,17 @@ TOKENIZER = AutoTokenizer.from_pretrained("prajjwal1/bert-mini")
 NUM_WORKERS = 20                  # dataloader workers (tune per filesystem/CPU)
 
 # Optional: evaluate pre-trained checkpoints instead of training
-USE_PT_MODEL = False
+USE_PT_MODEL = args.use_pt_model
 PT_MODEL_PATHS = [
-    '/path/to/out_l1o_res/1.mclus_excluded/model.pth',
-    '/path/to/out_l1o_res/2.mclus_excluded/model.pth',
-    '/path/to/out_l1o_res/3.mclus_excluded/model.pth',
-    '/path/to/out_l1o_res/4.mclus_excluded/model.pth',
-    '/path/to/out_l1o_res/5.mclus_excluded/model.pth',
-    '/path/to/out_l1o_res/6.mclus_excluded/model.pth',
-    '/path/to/out_l1o_res/7.mclus_excluded/model.pth',
-    '/path/to/out_l1o_res/8.mclus_excluded/model.pth',
-    '/path/to/out_l1o_res/9.mclus_excluded/model.pth',
-    '/path/to/out_l1o_res/10.mclus_excluded/model.pth'
+    '../models/rq2/m_res_1_land_ep10.pth',
+    '../models/rq2/m_res_1_port_ep9.pth',
+    '../models/rq2/m_res_2_land_ep7.pth',
+    '../models/rq2/m_res_2_port_ep7.pth',
+    '../models/rq2/m_res_3_land_ep8.pth',
+    '../models/rq2/m_res_3_port_ep5.pth',
+    '../models/rq2/m_res_4_land_ep10.pth',
+    '../models/rq2/m_res_4_port_ep8.pth',
+    '../models/rq2/m_res_5_land_ep9.pth'
 ]
 
 # Dataset roots and multi-cycle orchestration

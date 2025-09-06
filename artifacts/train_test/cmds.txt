@@ -1,0 +1,21 @@
+RQ1 & RQ4
+
+python tt_comb.py --use_pt_model True 
+
+RQ2
+
+python tt_l1o_res.py --use_pt_model True
+
+RQ3
+
+python tt_l1o_camp.py --use_pt_model True
+
+RQ5 
+
+    Before Adv
+
+    python tt_comb_adv.py --use_pt_model True --pt_model_path ../models/rq5/m_no_adv_ep4.pth
+
+    After Adv
+
+    python tt_comb_adv.py --use_pt_model True

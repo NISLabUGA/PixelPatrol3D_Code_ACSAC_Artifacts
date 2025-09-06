@@ -40,6 +40,7 @@ import numpy as np
 from datetime import datetime
 import shutil
 import random
+import argparse
 
 # For more stable but slower testing
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -47,6 +48,22 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Distributed rendezvous configuration (single-node localhost)
 os.environ["MASTER_ADDR"] = "localhost"
 os.environ["MASTER_PORT"] = "29500"
+
+# ==========================
+# ===== ARGUMENT PARSING ===
+# ==========================
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='PixelPatrol3D Adversarial Training Script')
+    parser.add_argument('--use_pt_model', type=bool, default=False, 
+                        help='Whether to use a pretrained model for evaluation only (default: False)')
+    parser.add_argument('--epochs', type=int, default=10, 
+                        help='Number of training epochs (default: 10)')
+    parser.add_argument('--batch_size', type=int, default=64, 
+                        help='Batch size for training and evaluation (default: 64)')
+    return parser.parse_args()
+
+# Parse command line arguments
+args = parse_arguments()
 
 # =========================
 # ===== CONFIGURATION =====
@@ -56,8 +73,8 @@ TARGET_IMG_SIZE = (1920, 1080)   # target canvas before padding
 IMG_SCALE_FACTOR = 0.5           # global scale factor applied after safe fit
 
 # Optimization setup
-BATCH_SIZE = 64
-EPOCHS = 10
+BATCH_SIZE = args.batch_size
+EPOCHS = args.epochs
 MAX_BENIGN_TEST_SAMPLES = 500    # cap benign samples in eval for speed
 SEED = 123
 
@@ -91,18 +108,18 @@ TOKENIZER = AutoTokenizer.from_pretrained("prajjwal1/bert-mini")
 NUM_WORKERS = 20
 
 # Optional: evaluate pretrained models instead of training
-USE_PT_MODEL = False
+USE_PT_MODEL = args.use_pt_model
 PT_MODEL_PATHS = [
-    '/path/to/out_l1o_camp/1.mclus_excluded/model.pth',
-    '/path/to/out_l1o_camp/2.mclus_excluded/model.pth',
-    '/path/to/out_l1o_camp/3.mclus_excluded/model.pth',
-    '/path/to/out_l1o_camp/4.mclus_excluded/model.pth',
-    '/path/to/out_l1o_camp/5.mclus_excluded/model.pth',
-    '/path/to/out_l1o_camp/6.mclus_excluded/model.pth',
-    '/path/to/out_l1o_camp/7.mclus_excluded/model.pth',
-    '/path/to/out_l1o_camp/8.mclus_excluded/model.pth',
-    '/path/to/out_l1o_camp/9.mclus_excluded/model.pth',
-    '/path/to/out_l1o_camp/10.mclus_excluded/model.pth'
+    '../models/rq3/m_camp_1_ep6.pth',
+    '../models/rq3/m_camp_2_ep6.pth',
+    '../models/rq3/m_camp_3_ep5.pth',
+    '../models/rq3/m_camp_4_ep10.pth',
+    '../models/rq3/m_camp_5_ep7.pth',
+    '../models/rq3/m_camp_6_ep4.pth',
+    '../models/rq3/m_camp_7_ep6.pth',
+    '../models/rq3/m_camp_8_ep8.pth',
+    '../models/rq3/m_camp_9_ep9.pth',
+    '../models/rq3/m_camp_10_ep7.pth'
 ]
 
 # Dataset roots for RQ3 cycles and output
