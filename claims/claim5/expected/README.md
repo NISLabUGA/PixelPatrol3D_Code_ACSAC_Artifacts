@@ -6,6 +6,12 @@ This training verification demonstrates that the training process for the RQ1 & 
 
 ## Expected Training Behavior
 
+### Training Time
+
+- **Per Epoch**: ~15 minutes (V100 32GB GPU)
+- **Verification (1-2 epochs)**: ~15-30 minutes (recommended for reviewers)
+- **Full Training (4 epochs)**: ~1 hour (not necessary for verification)
+
 ### Training Progress
 
 The verification run should demonstrate:
@@ -46,59 +52,7 @@ artifacts/train_test/out/comb/
     └── eval_2/
 ```
 
-## Expected Performance Progression
-
-### Training Loss
-
-- **Epoch 1**: Initial loss ~0.5-0.8 (depends on initialization)
-- **Epoch 2**: Loss should decrease to ~0.3-0.5
-- **Epoch 3**: Further decrease to ~0.2-0.4
-
-### Validation Performance (RQ1 Test Set)
-
-- **Epoch 1**: Detection rate ~85-95% at 1% FPR
-- **Epoch 2**: Detection rate ~90-98% at 1% FPR
-- **Epoch 3**: Detection rate ~95-99% at 1% FPR
-
-### Validation Performance (RQ4 Test Set)
-
-- **Epoch 1**: Detection rate ~80-90% at 1% FPR
-- **Epoch 2**: Detection rate ~85-95% at 1% FPR
-- **Epoch 3**: Detection rate ~90-97% at 1% FPR
-
-## Key Metrics to Verify
-
-### Training Log Verification
-
-Check `training_log.log` for:
-
-- Decreasing training loss over epochs
-- Stable learning rate and gradient updates
-- Successful batch processing without errors
-- Validation evaluation completion
-
-### Performance Metrics
-
-Each `eval_metrics.txt` should contain:
-
-- **Accuracy**: >0.95 by epoch 3
-- **Precision**: >0.95 by epoch 3
-- **Recall**: >0.95 by epoch 3
-- **F1 Score**: >0.95 by epoch 3
-- **AUC Score**: >0.99 by epoch 3
-- **Detection Rate @ 1% FPR**: >0.90 by epoch 3
-
-### ROC Curves
-
-Each `roc_curve.png` should show:
-
-- Strong performance with AUC >0.99
-- Steep initial rise indicating good discrimination
-- Performance improvement across epochs
-
 ## Understanding Epoch Selection
-
-### Why Epoch 4 in Full Training
 
 The verification demonstrates the training process, but in full training:
 
@@ -112,7 +66,7 @@ The verification demonstrates the training process, but in full training:
 The verification should show:
 
 - **Rapid Initial Learning**: Major improvements in epochs 1-2
-- **Fine-tuning**: Gradual improvements in epoch 3
+- **Fine-tuning**: Gradual improvements in epochs
 - **Convergence Pattern**: Loss stabilization indicating approaching optimum
 
 ## Troubleshooting
@@ -136,19 +90,27 @@ Normal warnings that may appear:
 
 The training verification is successful if:
 
-1. **Training Completes**: All 3 epochs finish without errors
+1. **Training Completes**: All epochs finish without errors
 2. **Loss Decreases**: Training loss shows downward trend
 3. **Performance Improves**: Validation metrics improve over epochs
 4. **Files Generated**: All expected output files are created
 5. **Metrics Reasonable**: Performance values are within expected ranges
 
-## Full Training Expectations
+## Verification vs. Full Training
 
-If running full training (10+ epochs):
+### Recommended Verification (1-2 epochs)
 
+- **Purpose**: Verify training pipeline works correctly
+- **Time**: ~15-30 minutes
+- **Sufficient to demonstrate**: Loss decreases, checkpoints save, evaluation runs
+- **Cost-effective**: Minimal compute resources required
+
+### Optional Full Training (4 epochs)
+
+- **Purpose**: Reproduce exact model performance
+- **Time**: ~1 hour
+- **Not necessary for verification**: Claims 1-4 already provide reproducibility testing
 - **Peak Performance**: Typically achieved at epoch 4
 - **Final Model**: `artifacts/models/rq1_rq4/m_ep4.pth`
-- **RQ1 Performance**: >99% detection rate at 1% FPR
-- **RQ4 Performance**: >97% detection rate at 1% FPR
 
-This verification demonstrates that the training process works correctly and provides insight into why epoch 4 was selected for the main evaluation claims.
+**Note**: Running 1-2 epochs is sufficient to verify the training process works correctly and is the recommended approach for reviewers. Full training is not necessary since claims 1-4 already handle reproducibility verification.

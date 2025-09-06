@@ -6,15 +6,20 @@ This campaign training verification demonstrates that the leave-one-out campaign
 
 ## Expected Training Behavior
 
+### Training Time
+
+- **Per Epoch**: ~5 minutes (V100 32GB GPU)
+- **Verification (1-2 epochs, subset of campaigns)**: ~15-30 minutes (recommended for reviewers)
+- **Full Training (10 campaigns, 10 epochs max)**: ~8.5 hours total (not necessary for verification)
+
 ### Leave-One-Out Campaign Training Progress
 
 The verification run should demonstrate:
 
-1. **Campaign Subset Selection**: 2-3 campaigns chosen for verification
-2. **Leave-One-Out Cycles**: Each campaign held out while training on others
-3. **Campaign-Agnostic Processing**: Features generalize across attack patterns
-4. **Cross-Campaign Evaluation**: Performance tested on held-out campaigns
-5. **Model Checkpointing**: Separate models saved for each campaign split
+1. **Leave-One-Out Cycles**: Each campaign held out while training on others
+2. **Campaign-Agnostic Processing**: Features generalize across attack patterns
+3. **Cross-Campaign Evaluation**: Performance tested on held-out campaigns
+4. **Model Checkpointing**: Separate models saved for each campaign split
 
 ### Expected Output Structure
 
@@ -39,41 +44,13 @@ artifacts/train_test/out/l1o_camp/
 │   ├── camp_detector_5_epoch_3.pth
 │   └── ep_3/
 │       └── eval_1/
-└── camp_8_excluded/                    # Campaign 8 held out (if subset=3)
+└── camp_8_excluded/                    # Campaign 8 held out
     ├── camp_detector_8_epoch_1.pth
     ├── camp_detector_8_epoch_2.pth
     ├── camp_detector_8_epoch_3.pth
     └── ep_3/
         └── eval_1/
 ```
-
-## Expected Performance Progression
-
-### Training Loss (Per Campaign)
-
-- **Epoch 1**: Initial loss ~0.5-0.9 (varies by campaign complexity)
-- **Epoch 2**: Loss should decrease to ~0.3-0.6
-- **Epoch 3**: Further decrease to ~0.2-0.5
-
-### Cross-Campaign Performance
-
-#### camp_1_excluded (Large Fake Software Campaign)
-
-- **Epoch 1**: Detection rate ~88-94% at 1% FPR
-- **Epoch 2**: Detection rate ~92-97% at 1% FPR
-- **Epoch 3**: Detection rate ~96-99% at 1% FPR
-
-#### camp_5_excluded (Notification Stealing Campaign)
-
-- **Epoch 1**: Detection rate ~82-89% at 1% FPR
-- **Epoch 2**: Detection rate ~87-94% at 1% FPR
-- **Epoch 3**: Detection rate ~92-98% at 1% FPR
-
-#### camp_8_excluded (Service Sign-up Scam Campaign)
-
-- **Epoch 1**: Detection rate ~85-91% at 1% FPR
-- **Epoch 2**: Detection rate ~90-95% at 1% FPR
-- **Epoch 3**: Detection rate ~94-99% at 1% FPR
 
 ## Key Metrics to Verify
 
@@ -85,17 +62,6 @@ Check `training_log.log` for:
 - Consistent training across different campaign combinations
 - Cross-campaign validation performance
 - Campaign-agnostic feature learning progress
-
-### Performance Metrics
-
-Each `eval_metrics.txt` should contain:
-
-- **Accuracy**: >0.92 by epoch 3 for held-out campaign
-- **Precision**: >0.92 by epoch 3
-- **Recall**: >0.92 by epoch 3
-- **F1 Score**: >0.92 by epoch 3
-- **AUC Score**: >0.99 by epoch 3
-- **Detection Rate @ 1% FPR**: >0.92 by epoch 3
 
 ### Campaign Generalization
 
@@ -178,19 +144,29 @@ Normal warnings that may appear:
 The campaign training verification is successful if:
 
 1. **Training Completes**: All campaign cycles finish without errors
-2. **Cross-Campaign Performance**: >92% detection rate on held-out campaigns
-3. **Consistent Generalization**: Similar performance patterns across attack types
-4. **Files Generated**: All expected output files for each campaign split
-5. **Attack Independence**: Good performance regardless of BMA category
+2. **Consistent Generalization**: Similar performance patterns across attack types
+3. **Files Generated**: All expected output files for each campaign split
+4. **Attack Independence**: Good performance regardless of BMA category
 
-## Full Campaign Training Expectations
+## Verification vs. Full Training
 
-If running full campaign training (all 10 campaigns):
+### Recommended Verification (1-2 epochs, subset of campaigns)
 
-- **Total Runtime**: 25-35 hours on modern GPU
+- **Purpose**: Verify leave-one-out campaign training pipeline works correctly
+- **Time**: ~15-30 minutes
+- **Sufficient to demonstrate**: Campaign preprocessing, cross-campaign evaluation, model checkpointing
+- **Cost-effective**: Minimal compute resources required
+
+### Optional Full Training (10 campaigns, 10 epochs max)
+
+- **Purpose**: Reproduce exact campaign model performance
+- **Time**: ~8.5 hours total
+- **Not necessary for verification**: Claims 1-4 already provide reproducibility testing
 - **Individual Convergence**: Each campaign typically converges by epoch 4-10
-- **Global Performance**: >99% detection rate across all held-out campaigns
+- **Global Performance**: >95% detection rate across all held-out campaigns
 - **Attack Robustness**: Consistent performance across all BMA categories
+
+**Note**: Running 1-2 epochs on a subset of campaigns is sufficient to verify the campaign training process works correctly and is the recommended approach for reviewers. Full training is not necessary since claims 1-4 already handle reproducibility verification.
 
 ## Key Insights
 

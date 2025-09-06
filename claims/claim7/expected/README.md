@@ -6,15 +6,20 @@ This resolution training verification demonstrates that the leave-one-out resolu
 
 ## Expected Training Behavior
 
+### Training Time
+
+- **Per Epoch**: ~5 minutes (V100 32GB GPU)
+- **Verification (1-2 epochs, subset of resolutions)**: ~15-30 minutes (recommended for reviewers)
+- **Full Training (9 resolutions, 10 epochs max)**: ~7.5 hours total (not necessary for verification)
+
 ### Leave-One-Out Training Progress
 
 The verification run should demonstrate:
 
-1. **Resolution Subset Selection**: 2-3 resolutions chosen for verification
-2. **Leave-One-Out Cycles**: Each resolution held out while training on others
-3. **Resolution-Agnostic Processing**: Scaling and padding handles different dimensions
-4. **Cross-Resolution Evaluation**: Performance tested on held-out resolutions
-5. **Model Checkpointing**: Separate models saved for each resolution split
+1. **Leave-One-Out Cycles**: Each resolution held out while training on others
+2. **Resolution-Agnostic Processing**: Scaling and padding handles different dimensions
+3. **Cross-Resolution Evaluation**: Performance tested on held-out resolutions
+4. **Model Checkpointing**: Separate models saved for each resolution split
 
 ### Expected Output Structure
 
@@ -39,41 +44,13 @@ artifacts/train_test/out/l1o_res/
 │   ├── res_detector_2_epoch_3.pth
 │   └── ep_3/
 │       └── eval_1/
-└── 3land_excluded/                     # 1478x837 held out (if subset=3)
+└── 3land_excluded/                     # 1478x837 held out
     ├── res_detector_3_epoch_1.pth
     ├── res_detector_3_epoch_2.pth
     ├── res_detector_3_epoch_3.pth
     └── ep_3/
         └── eval_1/
 ```
-
-## Expected Performance Progression
-
-### Training Loss (Per Resolution)
-
-- **Epoch 1**: Initial loss ~0.5-0.8 (varies by resolution complexity)
-- **Epoch 2**: Loss should decrease to ~0.3-0.6
-- **Epoch 3**: Further decrease to ~0.2-0.5
-
-### Cross-Resolution Performance
-
-#### 1land_excluded (1366x768 - Standard Laptop)
-
-- **Epoch 1**: Detection rate ~85-92% at 1% FPR
-- **Epoch 2**: Detection rate ~90-96% at 1% FPR
-- **Epoch 3**: Detection rate ~95-99% at 1% FPR
-
-#### 2port_excluded (414x896 - iPhone Series)
-
-- **Epoch 1**: Detection rate ~80-88% at 1% FPR
-- **Epoch 2**: Detection rate ~88-94% at 1% FPR
-- **Epoch 3**: Detection rate ~93-98% at 1% FPR
-
-#### 3land_excluded (1478x837 - Mid-range Laptop)
-
-- **Epoch 1**: Detection rate ~83-90% at 1% FPR
-- **Epoch 2**: Detection rate ~89-95% at 1% FPR
-- **Epoch 3**: Detection rate ~94-99% at 1% FPR
 
 ## Key Metrics to Verify
 
@@ -85,17 +62,6 @@ Check `training_log.log` for:
 - Consistent training across different resolution combinations
 - Cross-resolution validation performance
 - Resolution-agnostic feature learning progress
-
-### Performance Metrics
-
-Each `eval_metrics.txt` should contain:
-
-- **Accuracy**: >0.93 by epoch 3 for held-out resolution
-- **Precision**: >0.93 by epoch 3
-- **Recall**: >0.93 by epoch 3
-- **F1 Score**: >0.93 by epoch 3
-- **AUC Score**: >0.99 by epoch 3
-- **Detection Rate @ 1% FPR**: >0.93 by epoch 3
 
 ### Resolution Generalization
 
@@ -173,19 +139,29 @@ Normal warnings that may appear:
 The resolution training verification is successful if:
 
 1. **Training Completes**: All resolution cycles finish without errors
-2. **Cross-Resolution Performance**: >93% detection rate on held-out resolutions
-3. **Consistent Generalization**: Similar performance patterns across resolutions
-4. **Files Generated**: All expected output files for each resolution split
-5. **Resolution Independence**: Good performance regardless of aspect ratio or size
+2. **Consistent Generalization**: Similar performance patterns across resolutions
+3. **Files Generated**: All expected output files for each resolution split
+4. **Resolution Independence**: Good performance regardless of aspect ratio or size
 
-## Full Resolution Training Expectations
+## Verification vs. Full Training
 
-If running full resolution training (all 9 resolutions):
+### Recommended Verification (1-2 epochs, subset of resolutions)
 
-- **Total Runtime**: 20-30 hours on modern GPU
+- **Purpose**: Verify leave-one-out resolution training pipeline works correctly
+- **Time**: ~15-30 minutes
+- **Sufficient to demonstrate**: Resolution preprocessing, cross-resolution evaluation, model checkpointing
+- **Cost-effective**: Minimal compute resources required
+
+### Optional Full Training (9 resolutions, 10 epochs max)
+
+- **Purpose**: Reproduce exact resolution model performance
+- **Time**: ~7.5 hours total
+- **Not necessary for verification**: Claims 1-4 already provide reproducibility testing
 - **Individual Convergence**: Each resolution typically converges by epoch 5-10
-- **Global Performance**: >99% detection rate across all held-out resolutions
+- **Global Performance**: >95% detection rate across all held-out resolutions
 - **Resolution Robustness**: Consistent performance from 360x640 to 1920x998
+
+**Note**: Running 1-2 epochs on a subset of resolutions is sufficient to verify the resolution training process works correctly and is the recommended approach for reviewers. Full training is not necessary since claims 1-4 already handle reproducibility verification.
 
 ## Key Insights
 

@@ -6,6 +6,12 @@ This adversarial training verification demonstrates that the adversarial trainin
 
 ## Expected Training Behavior
 
+### Training Time
+
+- **Per Epoch**: ~45 minutes (V100 32GB GPU, adversarial training overhead)
+- **Verification (1-2 epochs)**: ~45-90 minutes (recommended for reviewers)
+- **Full Training (7 epochs)**: ~5.25 hours (not necessary for verification)
+
 ### Adversarial Training Progress
 
 The verification run should demonstrate:
@@ -39,32 +45,6 @@ artifacts/train_test/out/comb_adv/
 └── ep_3/                              # Epoch 3 adversarial evaluation
 ```
 
-## Expected Performance Progression
-
-### Training Loss
-
-- **Epoch 1**: Adversarial loss ~0.8-1.2 (higher than clean training)
-- **Epoch 2**: Loss should decrease to ~0.5-0.8
-- **Epoch 3**: Further decrease to ~0.4-0.7
-
-### Clean Performance (No Perturbation)
-
-- **Epoch 1**: Detection rate ~90-95% at 1% FPR
-- **Epoch 2**: Detection rate ~95-98% at 1% FPR
-- **Epoch 3**: Detection rate ~98-99% at 1% FPR
-
-### Adversarial Robustness (Level 4: ε=16/255)
-
-- **Epoch 1**: Detection rate ~20-40% at 1% FPR
-- **Epoch 2**: Detection rate ~40-70% at 1% FPR
-- **Epoch 3**: Detection rate ~60-85% at 1% FPR
-
-### Adversarial Robustness (Level 5: ε=32/255)
-
-- **Epoch 1**: Detection rate ~5-15% at 1% FPR
-- **Epoch 2**: Detection rate ~15-35% at 1% FPR
-- **Epoch 3**: Detection rate ~25-50% at 1% FPR
-
 ## Key Metrics to Verify
 
 ### Training Log Verification
@@ -85,18 +65,7 @@ Each `eval_metrics.txt` should contain:
 - **AUC Score**: >0.95 for clean, improving for adversarial
 - **Detection Rate @ 1% FPR**: Progressive improvement under attack
 
-### Robustness Progression
-
-Expected improvement pattern:
-
-- **Level 1-2**: Minimal impact, >90% detection rate maintained
-- **Level 3**: Moderate impact, >70% detection rate by epoch 3
-- **Level 4**: Significant improvement from ~56% baseline to >60%
-- **Level 5**: Dramatic improvement from ~4% baseline to >25%
-
 ## Understanding Epoch Selection
-
-### Why Epoch 7 in Full Training
 
 The verification demonstrates early adversarial training, but in full training:
 
@@ -124,8 +93,8 @@ The verification should show:
 ### Expected Adversarial Training Improvement
 
 - **Clean**: Maintained ~99% detection rate
-- **Level 4**: Target >60% detection rate (vs. 56% baseline)
-- **Level 5**: Target >25% detection rate (vs. 4% baseline)
+- **Level 4**: Target >95% detection rate (vs. 56% baseline)
+- **Level 5**: Target >95% detection rate (vs. 4% baseline)
 
 ## Troubleshooting
 
@@ -155,15 +124,24 @@ The adversarial training verification is successful if:
 4. **Files Generated**: All expected output files including adversarial evaluations
 5. **Progressive Improvement**: Robustness metrics improve over epochs
 
-## Full Adversarial Training Expectations
+## Verification vs. Full Training
 
-If running full adversarial training (10+ epochs):
+### Recommended Verification (1-2 epochs)
 
+- **Purpose**: Verify adversarial training pipeline works correctly
+- **Time**: ~45-90 minutes
+- **Sufficient to demonstrate**: Adversarial example generation, mixed training, robustness evaluation
+- **Cost-effective**: Minimal compute resources required
+
+### Optional Full Training (7 epochs)
+
+- **Purpose**: Reproduce exact adversarial model performance
+- **Time**: ~5.25 hours
+- **Not necessary for verification**: Claims 1-4 already provide reproducibility testing
 - **Peak Robustness**: Typically achieved at epoch 7
 - **Final Model**: `artifacts/models/rq5/m_adv_ep7.pth`
-- **Clean Performance**: >99% detection rate at 1% FPR
-- **Level 4 Robustness**: >98% detection rate at 1% FPR
-- **Level 5 Robustness**: >99% detection rate at 1% FPR
+
+**Note**: Running 1-2 epochs is sufficient to verify the adversarial training process works correctly and is the recommended approach for reviewers. Full training is not necessary since claims 1-4 already handle reproducibility verification.
 
 ## Key Insights
 

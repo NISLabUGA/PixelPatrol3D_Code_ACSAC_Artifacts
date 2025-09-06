@@ -188,25 +188,32 @@ cd ../claim4 && bash run.sh
 
 ```bash
 # Start with smaller claims for quick validation
-cd claims/claim1 && bash run.sh  # ~30 minutes
-cd ../claim4 && bash run.sh      # ~1 hour
+cd claims/claim1 && bash run.sh  # <10 minutes
+cd ../claim4 && bash run.sh      # <30 minutes
 ```
 
 ## Expected Performance on Public Infrastructure
 
 ### CPU-Only Execution
 
-- **Claim 1 (RQ1 & RQ4)**: ~45-60 minutes
-- **Claim 2 (RQ2)**: ~6-8 hours
-- **Claim 3 (RQ3)**: ~8-10 hours
-- **Claim 4 (RQ5)**: ~1.5-2 hours
+- **Claim 1 (RQ1 & RQ4)**: ~15-20 minutes
+- **Claim 2 (RQ2)**: ~45-60 minutes
+- **Claim 3 (RQ3)**: ~45-60 minutes
+- **Claim 4 (RQ5)**: ~45-60 minutes
 
 ### GPU-Accelerated Execution
 
-- **Claim 1 (RQ1 & RQ4)**: ~30 minutes
-- **Claim 2 (RQ2)**: ~4 hours
-- **Claim 3 (RQ3)**: ~6 hours
-- **Claim 4 (RQ5)**: ~1 hour
+- **Claim 1 (RQ1 & RQ4)**: <10 minutes
+- **Claim 2 (RQ2)**: <30 minutes
+- **Claim 3 (RQ3)**: <30 minutes
+- **Claim 4 (RQ5)**: <30 minutes
+
+### Training Verification Claims (Optional)
+
+- **Claim 5 (RQ1 & RQ4 Training)**: ~15-30 minutes (1-2 epochs verification)
+- **Claim 6 (RQ5 Adversarial Training)**: ~45-90 minutes (1-2 epochs verification)
+- **Claim 7 (RQ2 Resolution Training)**: ~15-30 minutes (1-2 epochs verification)
+- **Claim 8 (RQ3 Campaign Training)**: ~15-30 minutes (1-2 epochs verification)
 
 ## Troubleshooting Public Infrastructure Issues
 
