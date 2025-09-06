@@ -13,11 +13,8 @@ This artifact provides reproducible implementations and evaluations for all rese
 This artifact focuses specifically on evaluating **PP_detect**, which is the main contribution of this work and the integral part of PixelPatrol3D. This focus is justified for several reasons:
 
 1. **Core Technical Contribution**: PP_detect contains the novel machine learning algorithms and multimodal fusion techniques that represent the primary scientific contribution of this work.
-
 2. **Reproducible Evaluation**: The PP_detect evaluation provides standardized, objective metrics that can be independently verified and reproduced by reviewers.
-
 3. **Scientific Rigor**: The evaluation methodology follows established machine learning best practices with proper train/test splits, cross-validation, and statistical significance testing.
-
 4. **Resource Efficiency**: Focusing on PP_detect allows reviewers to evaluate the core claims within reasonable time and computational constraints.
 
 We do not provide explicit test cases for the following components:
@@ -33,11 +30,8 @@ We do not provide explicit test cases for the following components:
 ## Research Questions Addressed
 
 1. **RQ1 & RQ4**: Can PP_det accurately identify new instances of BMAs belonging to previously observed campaigns and fresh BMA attacks collected well after training data?
-
 2. **RQ2**: Can PP_det accurately identify instances of BMAs captured on a new screen size never seen during training?
-
 3. **RQ3**: Can PP_det identify web pages belonging to never-before-seen BMA campaigns?
-
 4. **RQ5**: Can PP_det be strengthened against adversarial examples?
 
 ## System Requirements
@@ -46,7 +40,9 @@ We do not provide explicit test cases for the following components:
 
 - **Minimum**: 8GB RAM, 4 CPU cores
 - **Recommended**: 16GB+ RAM, 8+ CPU cores, NVIDIA GPU with 8GB+ VRAM
-- **Storage**: ~50GB free space for datasets and results
+- **Storage**: ~500GB free space for datasets and results
+  - Dataset: ~218GB compressed, ~270GB uncompressed
+  - Additional space needed for temporary files and results
 
 ### Software Requirements
 
@@ -66,14 +62,23 @@ All Python dependencies are listed in requirements.txt and will be installed aut
    bash install.sh
    ```
 
-2. **Run a specific claim**:
+2. **Download Dataset** (Required - ~218GB download):
+
+   ```bash
+   python3 download_data.py
+   ```
+
+   **Note**: The dataset download is substantial (~218GB compressed, ~270GB uncompressed) and may take several hours. The script will verify checksums and extract files automatically. Use `python3 download_data.py --help` for additional options.
+
+3. **Run a specific claim**:
 
    ```bash
    cd claims/claim1
    bash run.sh
    ```
 
-3. **Check results**:
+4. **Check results**:
+
    ```bash
    cd claims/claim1/expected
    cat README.md
@@ -84,6 +89,7 @@ All Python dependencies are listed in requirements.txt and will be installed aut
 ```
 PixelPatrol3D_Code_ACSAC_Artifacts/
 ├── install.sh                 # One-click setup script
+├── download_data.py           # Dataset download script
 ├── README.txt                 # This file
 ├── license.txt                # License information
 ├── use.txt                    # Intended use and limitations
@@ -93,6 +99,8 @@ PixelPatrol3D_Code_ACSAC_Artifacts/
 │   ├── train_test/           # Training and evaluation scripts
 │   ├── pp3d_data/           # Dataset (placeholder - see data README)
 │   └── utils/               # Utility scripts
+├── infrastructure/           # Public infrastructure compatibility
+│   └── README.md            # Public cloud setup and execution guide
 └── claims/                   # Reproducibility claims
     ├── claim1/              # RQ1 & RQ4
     ├── claim2/              # RQ2
