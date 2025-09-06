@@ -10,7 +10,7 @@ echo "Testing model robustness against adversarial examples"
 cd ../../artifacts/train_test
 
 echo "=== Running evaluation BEFORE adversarial training ==="
-python tt_comb_adv.py --use_pt_model True --pt_model_path ../models/rq5/m_no_adv_ep4.pth
+python3 tt_comb_adv.py --use_pt_model True --pt_model_path ../models/rq5/m_no_adv_ep4.pth
 
 echo ""
 echo "=== Running evaluation AFTER adversarial training ==="

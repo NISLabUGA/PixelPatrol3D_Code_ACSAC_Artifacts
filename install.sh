@@ -59,6 +59,22 @@ python_version=$(python3 --version 2>&1 | awk '{print $2}')
 echo "Python version check passed: $python_version"
 
 # -------------------------------
+# Extra system dependencies
+# -------------------------------
+
+echo "Installing additional system packages (git, symlinks)..."
+if command -v apt-get &>/dev/null; then
+    apt-get install -y git
+elif command -v yum &>/dev/null; then
+    yum install -y git
+fi
+
+# Ensure 'python' command works (some scripts call python instead of python3)
+if ! command -v python &>/dev/null; then
+    ln -s "$(command -v python3)" /usr/bin/python
+fi
+
+# -------------------------------
 # CUDA check
 # -------------------------------
 if command -v nvidia-smi &> /dev/null; then
