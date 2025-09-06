@@ -26,10 +26,10 @@ Data Components:
 PAPER SECTIONS EVALUATED
 
 Primary Evaluation Claims (Claims 1-4):
-- RQ1 & RQ4 (Claim 1): Section 6.1 - New BMA instances and temporal generalization
-- RQ2 (Claim 2): Section 6.2 - Cross-resolution generalization (9 leave-one-out evaluations)
-- RQ3 (Claim 3): Section 6.3 - Cross-campaign generalization (10 leave-one-out evaluations)
-- RQ5 (Claim 4): Section 6.4 - Adversarial robustness evaluation
+- RQ1 & RQ4 (Claim 1): Section 4.1 & 4.4 - New BMA instances and temporal generalization
+- RQ2 (Claim 2): Section 4.2 - Cross-resolution generalization (9 leave-one-out evaluations)
+- RQ3 (Claim 3): Section 4.3 - Cross-campaign generalization (10 leave-one-out evaluations)
+- RQ5 (Claim 4): Section 4.5 - Adversarial robustness evaluation
 
 Training Verification Claims (Claims 5-8):
 - Claims 5-8: Demonstrate training pipeline functionality for each research question

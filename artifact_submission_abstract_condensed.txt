@@ -1,0 +1,20 @@
+ACSAC 2025 Artifact Submission Abstract
+
+Paper Title: PP3D: An In-Browser Vision-Based Defense Against Web Behavior Manipulation Attacks
+
+ARTIFACT TYPE
+This artifact provides both software and data components. The software includes Python source code for the PP_detect multimodal classifier, pre-trained PyTorch models, and automated evaluation scripts. The data component consists of a comprehensive dataset with 19,536 BMA samples and 100,000 benign samples organized across multiple campaigns and resolutions (~218GB compressed, ~270GB uncompressed).
+
+PAPER COVERAGE
+The artifact supports evaluation of all major experimental sections from Section 4: RQ1 (Section 4.1 - new BMA instances detection), RQ2 (Section 4.2 - generalization to new screen sizes), RQ3 (Section 4.3 - generalization to new BMA campaigns), RQ4 (Section 4.4 - generalization to fresh BMA campaigns), and RQ5 (Section 4.5 - adversarial examples evaluation). Eight reproducibility claims are provided: four primary evaluation claims demonstrating >99% detection rates and four training verification claims validating the training pipeline functionality.
+
+SOFTWARE DETAILS
+The artifact provides complete source code in Python 3.8+ with key dependencies including PyTorch 2.8.0, Transformers 4.48.2, OpenCV, and scikit-learn. The multimodal architecture combines MobileNetV3-Small (visual) and BERT-mini (text) components as described in Section 2.2.2. Installation is automated via install.sh script with CUDA detection. The system requires Linux/macOS, 8GB+ RAM (16GB+ recommended), and 500GB storage. NVIDIA GPU with 8GB+ VRAM is recommended but not required. Runtime ranges from <10 minutes to 90 minutes per claim depending on hardware.
+
+DATA DETAILS
+The dataset contains structured directories with images (PNG/JPEG) and metadata (JSON/CSV) organized hierarchically by research question, campaign, and resolution. The 218GB compressed dataset includes BMA samples across 6 attack categories (fake software downloads, scareware, tech support scams, notification stealing, fake lotteries/sweepstakes, service registration scams) and benign samples from Tranco Top 5K and Common Crawl sources as described in Section 3.1. Automated download with checksum verification is provided via download_data.py script.
+
+ARTIFACT REPOSITORY
+Complete artifact available at: https://github.com/NISLabUGA/PixelPatrol3D_Code_ACSAC_Artifacts
+
+The artifact targets the "Results Reproduced" badge by providing pre-trained models, standardized datasets, and automated evaluation scripts that eliminate training variability while enabling comprehensive validation of all major paper claims from Section 4.
