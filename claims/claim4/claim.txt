@@ -1,0 +1,31 @@
+RQ5: Can PP_det be strengthened against adversarial examples?
+
+This claim addresses Research Question 5 from the paper "PP3D: An In-Browser Vision-Based Defense Against Web Behavior Manipulation Attacks".
+
+RQ5 evaluates whether PP_det can be strengthened against adversarial examples through adversarial training, testing the model's robustness against coordinated multimodal attacks on both visual and textual components.
+
+The experiment compares two models:
+1. **Before Adversarial Training**: Model trained on clean data only
+2. **After Adversarial Training**: Model trained with adversarial curriculum including PGD attacks
+
+The adversarial evaluation uses:
+- **Visual Perturbations**: PGD L-infinity attacks with ε ∈ {2, 4, 8, 16, 32}/255
+- **Text Perturbations**: 5 levels of increasing severity (character noise, paraphrasing, semantic inversion)
+- **Coordinated Attacks**: Combined visual and textual perturbations at matching levels
+
+Test sets include adversarial examples at 6 different strength levels:
+- Level 0: Clean examples (no perturbation)
+- Levels 1-5: Increasing adversarial strength
+
+Expected Results:
+**Before Adversarial Training**:
+- Clean: 100% detection rate at 1% FPR
+- Level 4 (ε=16/255): 56.4% detection rate at 1% FPR
+- Level 5 (ε=32/255): 4.0% detection rate at 1% FPR
+
+**After Adversarial Training**:
+- Clean: 100% detection rate at 1% FPR
+- Level 4 (ε=16/255): 98.2% detection rate at 1% FPR
+- Level 5 (ε=32/255): 99.4% detection rate at 1% FPR
+
+This demonstrates that adversarial training substantially improves robustness while preserving performance on clean inputs.

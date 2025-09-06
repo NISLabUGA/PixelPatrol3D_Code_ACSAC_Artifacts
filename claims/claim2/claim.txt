@@ -1,0 +1,20 @@
+RQ2: Can PP_det accurately identify instances of BMAs captured on a new screen size never seen during training?
+
+This claim addresses Research Question 2 from the paper "PP3D: An In-Browser Vision-Based Defense Against Web Behavior Manipulation Attacks".
+
+RQ2 evaluates whether PP_det can accurately identify BMA instances captured on screen resolutions that were never seen during training, testing the model's resolution-agnostic capabilities.
+
+The experiment uses a leave-one-out evaluation methodology across 9 different screen resolutions (5 landscape, 4 portrait). For each resolution:
+- The model is trained on data from all other 8 resolutions
+- Testing is performed exclusively on the held-out resolution
+- Up to 10 images per BMA campaign are selected for balanced evaluation
+- 500 benign samples are included per test set
+
+The multimodal classifier combines MobileNetV3-Small visual features with BERT-mini text features, using a resolution-agnostic preprocessing pipeline that handles arbitrary input dimensions through scaling and padding.
+
+Expected Results:
+- Detection rate at or above 99% at 1% false positive rate across all 9 test resolutions
+- AUROC score at or above 0.999 for all resolution tests
+- Global performance: 99.8% detection rate at 1% FPR, 0.999 AUROC
+
+This demonstrates the model's ability to generalize across diverse screen resolutions and device form factors without requiring resolution-specific training.

@@ -1,0 +1,27 @@
+RQ3: Can PP_det identify web pages belonging to never-before-seen BMA campaigns?
+
+This claim addresses Research Question 3 from the paper "PP3D: An In-Browser Vision-Based Defense Against Web Behavior Manipulation Attacks".
+
+RQ3 evaluates whether PP_det can identify web pages belonging to completely unseen BMA campaigns, testing the model's ability to generalize across diverse attack types and visual/textual patterns without having seen specific campaign examples during training.
+
+The experiment uses a leave-one-out evaluation methodology across 10 different BMA campaigns representing various attack categories:
+- Notification Stealing (multiple campaigns)
+- Fake Software Download (multiple campaigns) 
+- Service Sign-up Scam
+- Fake Lottery/Sweepstakes
+- Technical Support Scam
+
+For each campaign:
+- The model is trained on data from all other 9 campaigns
+- Testing is performed exclusively on the held-out campaign
+- 5,000 benign samples are included per test set
+- Campaign sizes vary from 15 to 910 samples
+
+The multimodal classifier combines MobileNetV3-Small visual features with BERT-mini text features, learning to detect attack patterns that generalize across different campaign implementations.
+
+Expected Results:
+- Detection rate at or above 99% at 1% false positive rate across all 10 test campaigns
+- AUROC score at or above 0.996 for all campaign tests
+- Global performance: 99.3% detection rate at 1% FPR, 0.999 AUROC
+
+This demonstrates the model's ability to generalize to never-before-seen BMA campaigns based on learned attack patterns from other campaigns.

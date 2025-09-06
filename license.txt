@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 Network and Information Security Lab, University of Georgia
+Copyright (c) 2025 PixelPatrol3D Authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,18 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+This artifact also includes components with the following licenses:
+
+- PyTorch: BSD-3-Clause License
+- Transformers (Hugging Face): Apache License 2.0
+- MobileNetV3: Apache License 2.0
+- BERT: Apache License 2.0
+- Scikit-learn: BSD-3-Clause License
+- Matplotlib: PSF License
+- NumPy: BSD-3-Clause License
+- Pillow: HPND License
+
+For full license texts of dependencies, please refer to their respective repositories.
