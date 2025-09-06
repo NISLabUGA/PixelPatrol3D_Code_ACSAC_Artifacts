@@ -10,7 +10,7 @@ echo "Testing model's ability to generalize to unseen screen resolutions"
 cd ../../artifacts/train_test
 
 # Run the leave-one-out resolution evaluation for RQ2
-python tt_l1o_res.py --use_pt_model True
+python3 tt_l1o_res.py --use_pt_model True
 
 echo "RQ2 evaluation complete!"
 echo "Results saved to ./out/l1o_res/"

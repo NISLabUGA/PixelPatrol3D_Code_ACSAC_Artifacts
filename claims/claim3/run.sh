@@ -10,7 +10,7 @@ echo "Testing model's ability to generalize to unseen BMA campaigns"
 cd ../../artifacts/train_test
 
 # Run the leave-one-out campaign evaluation for RQ3
-python tt_l1o_camp.py --use_pt_model True
+python3 tt_l1o_camp.py --use_pt_model True
 
 echo "RQ3 evaluation complete!"
 echo "Results saved to ./out/l1o_camp/"

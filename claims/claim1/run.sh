@@ -10,7 +10,7 @@ echo "Testing model's ability to identify new BMA instances and fresh attacks"
 cd ../../artifacts/train_test
 
 # Run the combined evaluation for RQ1 and RQ4
-python tt_comb.py --use_pt_model True
+python3 tt_comb.py --use_pt_model True
 
 echo "RQ1 & RQ4 evaluation complete!"
 echo "Results saved to ./out/comb/"

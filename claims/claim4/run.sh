@@ -14,7 +14,7 @@ python tt_comb_adv.py --use_pt_model True --pt_model_path ../models/rq5/m_no_adv
 
 echo ""
 echo "=== Running evaluation AFTER adversarial training ==="
-python tt_comb_adv.py --use_pt_model True --pt_model_path ../models/rq5/m_adv_ep7.pth
+python3 tt_comb_adv.py --use_pt_model True --pt_model_path ../models/rq5/m_adv_ep7.pth
 
 echo ""
 echo "RQ5 evaluation complete!"

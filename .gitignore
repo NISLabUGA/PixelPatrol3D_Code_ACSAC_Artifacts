@@ -4,3 +4,4 @@ artifacts/pp3d_data/raw*
 artifacts/pp3d_data/test*
 artifacts/pp3d_data/train*
 artifacts/train_test/out*
+docker_cmds.txt
