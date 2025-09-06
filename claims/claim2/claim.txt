@@ -10,6 +10,25 @@ The experiment uses a leave-one-out evaluation methodology across 9 different sc
 - Up to 10 images per BMA campaign are selected for balanced evaluation
 - 500 benign samples are included per test set
 
+## Directory to Resolution Mapping
+
+For reviewer clarity, the following mapping exists between directory names and actual screen resolutions:
+
+**Landscape Resolutions:**
+- `1.land_excluded` → 1366x768 (Standard laptop resolution)
+- `2.land_excluded` → 1920x998 (Full HD desktop with browser chrome)
+- `3.land_excluded` → 1478x837 (Mid-range laptop resolution)
+- `4.land_excluded` → 1536x824 (High-DPI laptop resolution)
+- `5.land_excluded` → 1366x728 (Standard laptop with reduced height)
+
+**Portrait Resolutions:**
+- `1.port_excluded` → 800x1280 (Tablet portrait mode)
+- `2.port_excluded` → 414x896 (iPhone X/11/12 series)
+- `3.port_excluded` → 768x1024 (iPad portrait mode)
+- `4.port_excluded` → 360x640 (Android phone standard)
+
+Each leave-one-out experiment trains on 8 resolutions and tests on the remaining resolution to evaluate cross-resolution generalization.
+
 The multimodal classifier combines MobileNetV3-Small visual features with BERT-mini text features, using a resolution-agnostic preprocessing pipeline that handles arbitrary input dimensions through scaling and padding.
 
 Expected Results:
