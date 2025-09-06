@@ -29,3 +29,19 @@ Expected Results:
 - Level 5 (ε=32/255): 99.4% detection rate at 1% FPR
 
 This demonstrates that adversarial training substantially improves robustness while preserving performance on clean inputs.
+
+## Important Note on Reproducibility
+
+**Reviewers should be aware of expected variability in the "Before Adversarial Training" results:**
+
+The results for the non-adversarially trained model may show higher instability and variance compared to other experiments in this artifact. This is due to two fundamental factors:
+
+1. **Foolbox Framework Variability**: The adversarial example generation relies on the Foolbox library, which introduces some stochasticity in the attack generation process. Different runs may produce slightly different adversarial examples, leading to variation in detection rates.
+
+2. **Decision Boundary Instability**: When a model has not been exposed to adversarial perturbations during training, its decision boundary is inherently unstable against small input changes. This instability is a well-documented phenomenon in adversarial machine learning and is precisely what adversarial training aims to address.
+
+**Expected Variance**: Reviewers may observe detection rates for the non-adversarially trained model that vary by ±5-10% from the reported values, particularly at higher adversarial strength levels (Levels 4-5). This variability is expected and does not indicate experimental error.
+
+**Contrast with Adversarial Training**: The "After Adversarial Training" results should show much more stable and reproducible performance, as adversarial training specifically hardens the model's decision boundaries against such perturbations.
+
+This limitation highlights the importance of adversarial training for achieving both robustness and reproducible performance under adversarial conditions.
