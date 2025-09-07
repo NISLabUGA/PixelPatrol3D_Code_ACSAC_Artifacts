@@ -126,15 +126,16 @@ The verification will demonstrate:
 
 Different campaigns may show varying training dynamics:
 - **Large Campaigns**: More data may lead to faster convergence
-- **Diverse Campaigns**: Complex patterns may require more epochs
+- **Diverse Campaigns**: Varied patterns may require more epochs
 - **Specialized Attacks**: Unique characteristics may affect optimal epochs
 - **Common Patterns**: Shared BMA elements facilitate generalization
 
 ## Expected Epoch Variation
 
 The verification will show why different campaigns have different optimal epochs:
-- **Simple Patterns**: May converge quickly (epochs 4-6)
-- **Complex Attacks**: May require more training (epochs 8-10)
+- **Fast Converging**: May converge quickly (epochs 2-4)
+- **Moderate Converging**: Standard training requirements (epochs 5-7)
+- **Slow Converging**: May require more training (epochs 8-10)
 - **Diverse Content**: Variable convergence based on campaign heterogeneity
 - **Attack Sophistication**: More sophisticated attacks may need longer training
 

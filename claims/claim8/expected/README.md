@@ -78,8 +78,9 @@ Expected patterns:
 
 The verification demonstrates early training, but in full training:
 
-- **Simple Campaigns**: May converge quickly (epochs 4-6)
-- **Complex Campaigns**: May require more training (epochs 8-10)
+- **Fast Converging Campaigns**: May converge quickly (epochs 2-4)
+- **Moderate Converging Campaigns**: Standard training requirements (epochs 5-7)
+- **Slow Converging Campaigns**: May require more training (epochs 8-10)
 - **Campaign Size Impact**: Larger campaigns may converge faster
 - **Attack Sophistication**: More sophisticated attacks may need longer training
 
@@ -181,14 +182,14 @@ This verification demonstrates:
 
 ### Fast Converging Campaigns
 
-- **Simple Attack Patterns**: May converge quickly (epochs 4-6)
+- **Fast Converging Attack Patterns**: May converge quickly (epochs 2-4)
 - **Large Campaigns**: More data may lead to faster convergence
 - **Common Patterns**: Shared BMA elements facilitate generalization
 
 ### Slower Converging Campaigns
 
-- **Complex Attack Patterns**: May require more training (epochs 8-10)
-- **Diverse Campaigns**: Complex patterns may need more epochs
+- **Slow Converging Attack Patterns**: May require more training (epochs 8-10)
+- **Diverse Campaigns**: Varied patterns may need more epochs
 - **Specialized Attacks**: Unique characteristics may affect optimal epochs
 
 ## Campaign Characteristics Impact
@@ -202,7 +203,7 @@ This verification demonstrates:
 ### Specialized Campaigns (e.g., Tech Support Scams)
 
 - **Unique Patterns**: Distinctive attack characteristics
-- **Complex Learning**: May require more epochs (8-10)
+- **Advanced Learning**: May require more epochs (8-10)
 - **Sophisticated Attacks**: Advanced persuasion techniques
 
 ### Diverse Campaigns (e.g., Service Sign-ups)

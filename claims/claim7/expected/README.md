@@ -78,8 +78,9 @@ Expected patterns:
 
 The verification demonstrates early training, but in full training:
 
-- **Simple Resolutions**: May converge quickly (epochs 5-7)
-- **Complex Resolutions**: May require more training (epochs 8-10)
+- **Fast Converging Resolutions**: May converge quickly (epochs 5-7)
+- **Moderate Converging Resolutions**: Standard training requirements (epochs 8-9)
+- **Slow Converging Resolutions**: May require more training (epoch 10)
 - **Aspect Ratio Impact**: Portrait vs. landscape may affect convergence
 - **Size Complexity**: Larger resolutions may need more epochs
 
