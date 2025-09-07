@@ -110,15 +110,15 @@ NUM_WORKERS = 20
 # Optional: evaluate pretrained models instead of training
 USE_PT_MODEL = args.use_pt_model
 PT_MODEL_PATHS = [
-    '../models/rq3/m_camp_1_ep6.pth',
-    '../models/rq3/m_camp_2_ep6.pth',
-    '../models/rq3/m_camp_3_ep5.pth',
-    '../models/rq3/m_camp_4_ep10.pth',
-    '../models/rq3/m_camp_5_ep7.pth',
-    '../models/rq3/m_camp_6_ep4.pth',
-    '../models/rq3/m_camp_7_ep6.pth',
-    '../models/rq3/m_camp_8_ep8.pth',
-    '../models/rq3/m_camp_9_ep9.pth',
+    '../models/rq3/m_camp_1_ep10.pth',
+    '../models/rq3/m_camp_2_ep3.pth',
+    '../models/rq3/m_camp_3_ep3.pth',
+    '../models/rq3/m_camp_4_ep4.pth',
+    '../models/rq3/m_camp_5_ep5.pth',
+    '../models/rq3/m_camp_6_ep10.pth',
+    '../models/rq3/m_camp_7_ep4.pth',
+    '../models/rq3/m_camp_8_ep2.pth',
+    '../models/rq3/m_camp_9_ep4.pth',
     '../models/rq3/m_camp_10_ep7.pth'
 ]
 

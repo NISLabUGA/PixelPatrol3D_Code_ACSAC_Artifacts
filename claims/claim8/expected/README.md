@@ -110,15 +110,15 @@ The verification should show:
 
 ### Full Training Campaign Models
 
-- `m_camp_1_ep6.pth` → Campaign 1 held out (epoch 6)
-- `m_camp_2_ep6.pth` → Campaign 2 held out (epoch 6)
-- `m_camp_3_ep5.pth` → Campaign 3 held out (epoch 5)
-- `m_camp_4_ep10.pth` → Campaign 4 held out (epoch 10)
-- `m_camp_5_ep7.pth` → Campaign 5 held out (epoch 7)
-- `m_camp_6_ep4.pth` → Campaign 6 held out (epoch 4)
-- `m_camp_7_ep6.pth` → Campaign 7 held out (epoch 6)
-- `m_camp_8_ep8.pth` → Campaign 8 held out (epoch 8)
-- `m_camp_9_ep9.pth` → Campaign 9 held out (epoch 9)
+- `m_camp_1_ep10.pth` → Campaign 1 held out (epoch 10)
+- `m_camp_2_ep3.pth` → Campaign 2 held out (epoch 3)
+- `m_camp_3_ep3.pth` → Campaign 3 held out (epoch 3)
+- `m_camp_4_ep4.pth` → Campaign 4 held out (epoch 4)
+- `m_camp_5_ep5.pth` → Campaign 5 held out (epoch 5)
+- `m_camp_6_ep10.pth` → Campaign 6 held out (epoch 10)
+- `m_camp_7_ep4.pth` → Campaign 7 held out (epoch 4)
+- `m_camp_8_ep2.pth` → Campaign 8 held out (epoch 2)
+- `m_camp_9_ep4.pth` → Campaign 9 held out (epoch 4)
 - `m_camp_10_ep7.pth` → Campaign 10 held out (epoch 7)
 
 ## Troubleshooting
