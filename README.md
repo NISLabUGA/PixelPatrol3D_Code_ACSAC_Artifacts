@@ -2,6 +2,11 @@
 
 This artifact accompanies the paper "PP3D: An In-Browser Vision-Based Defense Against Web Behavior Manipulation Attacks" submitted to ACSAC 2025.
 
+**📄 Paper Versions:**
+
+- [Camera Ready Pre-Print (October 2025)](pp3d_acsac_cr_102125.pdf)
+- [Original Accepted Version (May 2025)](pp3d_acsac_053025.pdf)
+
 ## Overview
 
 This artifact provides reproducible implementations and evaluations for all research questions presented in the paper. The artifact includes pre-trained models, evaluation scripts, and expected results for each research question.
