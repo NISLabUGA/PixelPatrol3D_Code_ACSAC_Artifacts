@@ -1,6 +1,8 @@
 # PP3D Dataset Structure
 
-To access the data associated with this project we have hosted the data [here](http://pp3d_data.sdkhomelab.com/). This directory contains the datasets used in the PP3D (Pixel Patrol 3D) research paper "An In-Browser Vision-Based Defense Against Web Behavior Manipulation Attacks" submitted to ACSAC 2025. The datasets are organized to support the various research questions (RQs) investigated in the paper.
+To access the data associated with this project, we recommend downloading from our primary long-term hosting at the **University of Georgia Libraries** repository: https://openscholar.uga.edu/record/27692 (DOI: 10.71927/uga.27692). An alternative download source is also available at https://pp3d-data.sdkhomelab.com.
+
+This directory contains the datasets used in the PP3D (Pixel Patrol 3D) research paper "An In-Browser Vision-Based Defense Against Web Behavior Manipulation Attacks" submitted to ACSAC 2025. The datasets are organized to support the various research questions (RQs) investigated in the paper.
 
 ## Research Questions Overview
 
@@ -126,20 +128,48 @@ Contains data for leave-one-out cross-validation experiments:
 
 The PP3D dataset is publicly available for research purposes. All major directories (`l1o`, `raw`, `test`, and `train`) are provided as compressed `.zip` files for easier download and storage.
 
-### Complete Dataset Download
+### Primary Data Source: UGA Libraries Repository (Recommended)
+
+The PP3D dataset is permanently archived and hosted by the **University of Georgia Libraries**. This is the recommended primary source for downloading the dataset due to its long-term institutional support and stability.
+
+**Repository Details:**
+- URL: https://openscholar.uga.edu/record/27692
+- DOI: 10.71927/uga.27692
+- License: CC BY 4.0
+- Publication Date: December 12, 2025
+
+#### Manual Download from UGA Repository
+
+1. Visit the repository page: https://openscholar.uga.edu/record/27692
+2. Scroll to the "Files" section on the page
+3. Download the required dataset files:
+   - `train.zip` (~46 GB) - Training data for RQ1, RQ4, RQ5
+   - `test.zip` (~1 GB) - Test data for all research questions
+   - `l1o.zip` (~171 GB) - Leave-one-out data for RQ2, RQ3
+   - `raw.zip` (~141 GB) - Raw data collection (optional)
+4. Place downloaded files in the `artifacts/pp3d_data/` directory
+5. Extract using the verification commands below
+
+### Alternative Data Source: sdkhomelab.com
+
+An alternative automated download source is available for convenience. This source remains operational but the UGA repository above is recommended for long-term reliability.
+
+#### Automated Download Script (Using Alternative Source)
 
 To download the entire dataset:
 
 ```bash
 # Download all dataset components
-wget -r -np -nH --cut-dirs=4 -R "index.html*" http://pp3d_data.sdkhomelab.com/
+wget -r -np -nH --cut-dirs=4 -R "index.html*" https://pp3d-data.sdkhomelab.com/
 
 # Alternative: Download individual zip files
-wget http://pp3d_data.sdkhomelab.com/raw.zip
-wget http://pp3d_data.sdkhomelab.com/train.zip
-wget http://pp3d_data.sdkhomelab.com/test.zip
-wget http://pp3d_data.sdkhomelab.com/l1o.zip
+wget https://pp3d-data.sdkhomelab.com/raw.zip
+wget https://pp3d-data.sdkhomelab.com/train.zip
+wget https://pp3d-data.sdkhomelab.com/test.zip
+wget https://pp3d-data.sdkhomelab.com/l1o.zip
 ```
+
+**Note**: The repository's automated download script (`download_data.py`) and the wget commands shown in this section all use the sdkhomelab.com source. For the most reliable long-term access, we recommend downloading directly from the UGA Libraries repository above.
 
 ### Selective Download by Research Question
 
@@ -149,8 +179,8 @@ Download only the data needed for specific research questions:
 
 ```bash
 # Download training and RQ1 test data
-wget http://pp3d_data.sdkhomelab.com/train.zip
-wget http://pp3d_data.sdkhomelab.com/test.zip
+wget https://pp3d-data.sdkhomelab.com/train.zip
+wget https://pp3d-data.sdkhomelab.com/test.zip
 # Extract only RQ1 test data
 unzip -j test.zip "test/rq1/*" -d rq1_test/
 ```
@@ -159,7 +189,7 @@ unzip -j test.zip "test/rq1/*" -d rq1_test/
 
 ```bash
 # Download leave-one-out data for resolution experiments
-wget http://pp3d_data.sdkhomelab.com/l1o.zip
+wget https://pp3d-data.sdkhomelab.com/l1o.zip
 # Extract resolution-specific data
 unzip l1o.zip
 ```
@@ -168,7 +198,7 @@ unzip l1o.zip
 
 ```bash
 # Download leave-one-out data for campaign experiments
-wget http://pp3d_data.sdkhomelab.com/l1o.zip
+wget https://pp3d-data.sdkhomelab.com/l1o.zip
 # Extract campaign-specific data
 unzip l1o.zip
 ```
@@ -177,8 +207,8 @@ unzip l1o.zip
 
 ```bash
 # Download training data and RQ4 test data
-wget http://pp3d_data.sdkhomelab.com/train.zip
-wget http://pp3d_data.sdkhomelab.com/test.zip
+wget https://pp3d-data.sdkhomelab.com/train.zip
+wget https://pp3d-data.sdkhomelab.com/test.zip
 # Extract only RQ4 test data
 unzip -j test.zip "test/rq4/*" -d rq4_test/
 ```
@@ -187,8 +217,8 @@ unzip -j test.zip "test/rq4/*" -d rq4_test/
 
 ```bash
 # Download training data (including adversarial) and RQ5 test data
-wget http://pp3d_data.sdkhomelab.com/train.zip
-wget http://pp3d_data.sdkhomelab.com/test.zip
+wget https://pp3d-data.sdkhomelab.com/train.zip
+wget https://pp3d-data.sdkhomelab.com/test.zip
 # Extract adversarial training and test data
 unzip -j train.zip "train/malicious_adv/*" -d adversarial_train/
 unzip -j test.zip "test/rq5/*" -d rq5_test/
@@ -200,7 +230,7 @@ For researchers interested in the original, unprocessed data:
 
 ```bash
 # Download raw data collection
-wget http://pp3d_data.sdkhomelab.com/raw.zip
+wget https://pp3d-data.sdkhomelab.com/raw.zip
 unzip raw.zip
 
 # Access specific raw data components

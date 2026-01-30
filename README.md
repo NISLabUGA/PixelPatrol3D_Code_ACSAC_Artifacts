@@ -73,11 +73,17 @@ All Python dependencies are listed in requirements.txt and will be installed aut
 
 2. **Download Dataset** (Required - ~218GB download):
 
+   **Primary Source (Recommended)**: For long-term reliability, download the dataset from the UGA Libraries repository:
+   - Visit: https://openscholar.uga.edu/record/27692
+   - Download `train.zip`, `test.zip`, and `l1o.zip`
+   - Place files in `artifacts/pp3d_data/` and extract
+
+   **Alternative Automated Download**: Use the automated script:
    ```bash
    python3 download_data.py
    ```
 
-   **Note**: The dataset download is substantial (~218GB compressed, ~270GB uncompressed) and may take several hours. The script will verify checksums and extract files automatically. Use `python3 download_data.py --help` for additional options.
+   **Note**: The automated script uses an alternative hosting source. For the most stable long-term access, we recommend downloading from the UGA repository above. The dataset download is substantial (~218GB compressed, ~270GB uncompressed) and may take several hours. See [artifacts/pp3d_data/README.md](artifacts/pp3d_data/README.md) for detailed download instructions.
 
 3. **Run a specific claim**:
 

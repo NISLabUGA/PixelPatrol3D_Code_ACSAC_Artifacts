@@ -243,18 +243,24 @@ cd ../claim8 && bash run.sh      # ~15-30 minutes
 
 4. **Network Connectivity**
 
-   - Verify outbound HTTPS access to pp3d-data.sdkhomelab.com
+   - Verify outbound HTTPS access to pp3d-data.sdkhomelab.com (or manually download from UGA repository: https://openscholar.uga.edu/record/27692)
    - Use alternative download methods if direct access is blocked
    - **Restricted networks**: May require pre-downloaded dataset transfer
 
-5. **GPU Access Issues**
+5. **Alternative Data Source**
+
+   - If access to pp3d-data.sdkhomelab.com is blocked or unavailable, download the dataset manually from the UGA Libraries repository
+   - Visit: https://openscholar.uga.edu/record/27692
+   - Download required files and place in `artifacts/pp3d_data/` directory
+
+6. **GPU Access Issues**
 
    - Verify CUDA installation and compatibility
    - Fall back to CPU-only execution if GPU unavailable
    - Check platform-specific GPU allocation procedures
    - **No GPU access**: Expect 2-4x longer execution times
 
-6. **Platform-Specific Limitations**
+7. **Platform-Specific Limitations**
 
    - **Google Colab**: Storage and session timeout constraints
    - **Research Platforms**: May require allocation approval and scheduling
